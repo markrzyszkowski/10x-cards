@@ -1,6 +1,6 @@
-# 10x Astro Starter
+# 10x Cards
 
-A modern, opinionated starter template for building fast, accessible, and AI-friendly web applications.
+AI-powered flash cards.
 
 ## Tech Stack
 
@@ -19,8 +19,8 @@ A modern, opinionated starter template for building fast, accessible, and AI-fri
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/przeprogramowani/10x-astro-starter.git
-cd 10x-astro-starter
+git clone https://github.com/markrzyszkowski/10x-cards.git
+cd 10x-cards
 ```
 
 2. Install dependencies:
