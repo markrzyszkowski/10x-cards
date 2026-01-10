@@ -1,6 +1,6 @@
-# AI Rules for {{project-name}}
+# CLAUDE.md
 
-{{project-description}}
+10x Cards is an AI-powered flash cards application built with modern web technologies.
 
 ## Tech Stack
 
@@ -42,6 +42,21 @@ When modifying the directory structure, always update this section.
 - Use guard clauses to handle preconditions and invalid states early.
 - Implement proper error logging and user-friendly error messages.
 - Consider using custom error types or error factories for consistent error handling.
+
+### Guidelines for support level
+
+- Favor elegant, maintainable solutions over verbose code. Assume understanding of language idioms and design patterns.
+- Highlight potential performance implications and optimization opportunities in suggested code.
+- Frame solutions within broader architectural contexts and suggest design alternatives when appropriate.
+- Focus comments on 'why' not 'what' - assume code readability through well-named functions and variables.
+- Proactively address edge cases, race conditions, and security considerations without being prompted.
+- When debugging, provide targeted diagnostic approaches rather than shotgun solutions.
+- Suggest comprehensive testing strategies rather than just example tests, including considerations for mocking, test organization, and coverage.
+
+### Guidelines for documentation
+
+- Update relevant documentation in /docs when modifying features
+- Keep README.md in sync with new capabilities
 
 ## Frontend
 
@@ -111,3 +126,4 @@ When modifying the directory structure, always update this section.
 - Use Zod schemas to validate data exchanged with the backend.
 - Use supabase from context.locals in Astro routes instead of importing supabaseClient directly
 - Use SupabaseClient type from `src/db/supabase.client.ts`, not from `@supabase/supabase-js`
+- 
