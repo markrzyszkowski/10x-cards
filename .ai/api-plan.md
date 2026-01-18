@@ -258,14 +258,6 @@ Authorization: Bearer {access_token}
 }
 ```
 
-**Business Logic:**
-- Validates source text length (1000-10000 characters)
-- Calls OpenRouter.ai API
-- Creates a generation record with metadata
-- Returns proposed flashcards (not saved to database yet)
-- On success: stores generation metadata
-- On failure: creates generation_error_log record
-
 **Error Responses:**
 - `401 Unauthorized` - Invalid or missing token
 - `400 Bad Request` - Text length outside 1000-10000 range, invalid model
@@ -383,7 +375,7 @@ Authorization: Bearer {access_token}
     {
       "id": 123,
       "error_code": "500",
-      "error_message": "OpenRouter API rate limit exceeded",
+      "error_message": "Rate limit exceeded",
       "model": "openai/gpt-4",
       "source_text_hash": "sha256_hash",
       "source_text_length": 5000,
@@ -443,9 +435,6 @@ Authorization is implemented using **Row-Level Security (RLS)** in PostgreSQL vi
 
 **Rate Limiting:**
 - Implemented for `/api/generations` endpoint to prevent abuse
-- Suggested limits:
-  - 10 generation requests per hour per user
-  - 1000 API requests per hour per user (general)
 
 ---
 
@@ -476,50 +465,17 @@ Authorization is implemented using **Row-Level Security (RLS)** in PostgreSQL vi
   - Required
   - Minimum 1000 characters
   - Maximum 10000 characters
-  - Plain text validation (strip HTML/scripts for security)
 
 ### 4.2. Business Logic Implementation
 
-#### Flashcard Generation Flow
+#### AI Generation:
+  - Validate inputs and call the AI service upon POST /api/generations.
+  - Record generation metadata (model, generated_count, duration) and send generated flashcards proposals to the user.
+  - Log any errors in generation_error_logs for auditing and debugging.
 
-1. **Request Validation**:
-   - Validate source_text length (1000-10000 characters)
-   - Check user rate limits
-
-2. **AI API Call**:
-   - Calculate hash of source_text for deduplication
-   - Record start time
-   - Call OpenRouter.ai API
-   - Calculate duration
-
-3. **Success Path**:
-   - Parse AI response into flashcard proposals
-   - Create generation record with metadata
-   - Return proposals to user (not yet saved)
-
-4. **Error Path**:
-   - Create generation_error_log record upon failure
-
-5. **Approval and Saving**:
-   - User reviews proposals in frontend
-   - User selects flashcards to save (may edit some)
-   - Frontend calls POST /api/flashcards with:
-     - Selected flashcard
-     - Appropriate source ('ai-full' or 'ai-edited')
-     - generation_id
-   - API creates flashcard records
-   - API updates generation record with:
-     - accepted_unedited_count
-     - accepted_edited_count
-
-#### Flashcard Editing Logic
-
-When a flashcard is edited via PATCH /api/flashcards/{id}:
-
-1. **Source Update**:
-   - If current source is 'ai-full' → change to 'ai-edited'
-   - If current source is 'ai-edited' → remain 'ai-edited'
-   - If current source is 'manual' → remain 'manual'
-
-2. **Timestamp Update**:
-   - Database trigger automatically updates updated_at
+#### Flashcard Management:
+  - Automatic update of the updated_at field via database triggers when flashcards are modified.
+  - Source update algorithm when flashcards are edited:
+    - If current source is `ai-full` → change to `ai-edited`
+    - If current source is `ai-edited` → remain `ai-edited`
+    - If current source is `manual` → remain `manual`

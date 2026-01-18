@@ -1,4 +1,4 @@
-import type {Tables, TablesInsert, TablesUpdate} from "./db/database.types";
+import type { Tables, TablesInsert, TablesUpdate } from "./db/database.types";
 
 // ============================================================================
 // Flashcard DTOs
