@@ -1,3 +1,7 @@
+---
+description: Recipe for initializing Supabase in an Astro project
+---
+
 # Supabase Astro Initialization
 
 This document provides a reproducible guide to create the necessary file structure for integrating Supabase with your Astro project.
