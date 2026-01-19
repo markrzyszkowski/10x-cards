@@ -53,11 +53,6 @@ When modifying the directory structure, always update this section.
 - When debugging, provide targeted diagnostic approaches rather than shotgun solutions.
 - Suggest comprehensive testing strategies rather than just example tests, including considerations for mocking, test organization, and coverage.
 
-### Guidelines for documentation
-
-- Update relevant documentation in /docs when modifying features
-- Keep README.md in sync with new capabilities
-
 ## Frontend
 
 ### General Guidelines
