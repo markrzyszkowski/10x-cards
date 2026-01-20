@@ -1,5 +1,5 @@
 ---
-description: Create a detailed implementation plan for a new view in a web application based on provided documentation and requirements
+description: Implement a frontend view based on the provided implementation plan and rules
 argument-hint: [ui-view-plan-reference]
 ---
 
