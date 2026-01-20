@@ -9,12 +9,7 @@ import type { ProposalEditProps } from "./GenerateView.types";
 const MAX_FRONT_CHARS = 200;
 const MAX_BACK_CHARS = 500;
 
-export function ProposalEdit({
-  initialFront,
-  initialBack,
-  onSave,
-  onCancel,
-}: ProposalEditProps) {
+export function ProposalEdit({ initialFront, initialBack, onSave, onCancel }: ProposalEditProps) {
   const [front, setFront] = useState(initialFront);
   const [back, setBack] = useState(initialBack);
   const [frontError, setFrontError] = useState<string | null>(null);
@@ -27,9 +22,7 @@ export function ProposalEdit({
     if (text.trim().length === 0) {
       setFrontError("Front text is required");
     } else if (text.length > MAX_FRONT_CHARS) {
-      setFrontError(
-        `Front text must not exceed ${MAX_FRONT_CHARS} characters (current: ${text.length})`
-      );
+      setFrontError(`Front text must not exceed ${MAX_FRONT_CHARS} characters (current: ${text.length})`);
     } else {
       setFrontError(null);
     }
@@ -42,9 +35,7 @@ export function ProposalEdit({
     if (text.trim().length === 0) {
       setBackError("Back text is required");
     } else if (text.length > MAX_BACK_CHARS) {
-      setBackError(
-        `Back text must not exceed ${MAX_BACK_CHARS} characters (current: ${text.length})`
-      );
+      setBackError(`Back text must not exceed ${MAX_BACK_CHARS} characters (current: ${text.length})`);
     } else {
       setBackError(null);
     }
@@ -81,16 +72,11 @@ export function ProposalEdit({
   return (
     <Card onKeyDown={handleKeyDown}>
       <CardHeader>
-        <h3 className="text-sm font-medium text-muted-foreground">
-          Edit Flashcard
-        </h3>
+        <h3 className="text-sm font-medium text-muted-foreground">Edit Flashcard</h3>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <label
-            htmlFor="front-edit"
-            className="text-sm font-semibold text-muted-foreground"
-          >
+          <label htmlFor="front-edit" className="text-sm font-semibold text-muted-foreground">
             Front
           </label>
           <Input
@@ -102,11 +88,7 @@ export function ProposalEdit({
             className={frontError ? "border-destructive" : ""}
           />
           <div className="flex items-center justify-between">
-            <CharacterCounter
-              count={front.length}
-              min={1}
-              max={MAX_FRONT_CHARS}
-            />
+            <CharacterCounter count={front.length} min={1} max={MAX_FRONT_CHARS} />
           </div>
           {frontError && (
             <p id="front-error" className="text-sm font-medium text-destructive">
@@ -116,10 +98,7 @@ export function ProposalEdit({
         </div>
 
         <div className="space-y-2">
-          <label
-            htmlFor="back-edit"
-            className="text-sm font-semibold text-muted-foreground"
-          >
+          <label htmlFor="back-edit" className="text-sm font-semibold text-muted-foreground">
             Back
           </label>
           <Textarea
@@ -131,11 +110,7 @@ export function ProposalEdit({
             aria-describedby="back-counter back-error"
           />
           <div className="flex items-center justify-between">
-            <CharacterCounter
-              count={back.length}
-              min={1}
-              max={MAX_BACK_CHARS}
-            />
+            <CharacterCounter count={back.length} min={1} max={MAX_BACK_CHARS} />
           </div>
           {backError && (
             <p id="back-error" className="text-sm font-medium text-destructive">

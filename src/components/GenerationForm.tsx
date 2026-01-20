@@ -7,11 +7,7 @@ import type { GenerationFormProps } from "./GenerateView.types";
 const MIN_CHARS = 1000;
 const MAX_CHARS = 10000;
 
-export function GenerationForm({
-  onGenerate,
-  isGenerating,
-  disabled = false,
-}: GenerationFormProps) {
+export function GenerationForm({ onGenerate, isGenerating, disabled = false }: GenerationFormProps) {
   const [sourceText, setSourceText] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -33,10 +29,7 @@ export function GenerationForm({
     onGenerate(sourceText);
   };
 
-  const isValid =
-    sourceText.trim().length > 0 &&
-    sourceText.length >= MIN_CHARS &&
-    sourceText.length <= MAX_CHARS;
+  const isValid = sourceText.trim().length > 0 && sourceText.length >= MIN_CHARS && sourceText.length <= MAX_CHARS;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -57,18 +50,10 @@ export function GenerationForm({
           aria-describedby="char-counter"
         />
         <div className="flex items-center justify-between">
-          <CharacterCounter
-            count={sourceText.length}
-            min={MIN_CHARS}
-            max={MAX_CHARS}
-          />
+          <CharacterCounter count={sourceText.length} min={MIN_CHARS} max={MAX_CHARS} />
         </div>
       </div>
-      <Button
-        type="submit"
-        disabled={!isValid || isGenerating || disabled}
-        className="w-full sm:w-auto"
-      >
+      <Button type="submit" disabled={!isValid || isGenerating || disabled} className="w-full sm:w-auto">
         {isGenerating ? "Generating..." : "Generate Flashcards"}
       </Button>
     </form>

@@ -6,15 +6,8 @@ import { SuccessMessage } from "./SuccessMessage";
 import { useFlashcardGeneration } from "./hooks/useFlashcardGeneration";
 
 export function GenerateView() {
-  const {
-    viewState,
-    generateFlashcards,
-    acceptProposal,
-    editProposal,
-    rejectProposal,
-    saveFlashcards,
-    retryGenerate,
-  } = useFlashcardGeneration();
+  const { viewState, generateFlashcards, acceptProposal, editProposal, rejectProposal, saveFlashcards, retryGenerate } =
+    useFlashcardGeneration();
 
   const handleStartOver = () => {
     retryGenerate();
@@ -23,9 +16,7 @@ export function GenerateView() {
   return (
     <div className="container mx-auto max-w-7xl space-y-8 px-4 py-8">
       <div className="space-y-2">
-        <h1 className="text-4xl font-bold tracking-tight">
-          Generate Flashcards
-        </h1>
+        <h1 className="text-4xl font-bold tracking-tight">Generate Flashcards</h1>
         <p className="text-lg text-muted-foreground">
           Paste your educational text and let AI generate flashcards for you
         </p>
@@ -45,16 +36,11 @@ export function GenerateView() {
 
       {/* Success State */}
       {viewState.type === "success" && (
-        <SuccessMessage
-          savedCount={viewState.savedCount}
-          onStartOver={handleStartOver}
-        />
+        <SuccessMessage savedCount={viewState.savedCount} onStartOver={handleStartOver} />
       )}
 
       {/* Error State */}
-      {viewState.type === "error" && (
-        <ErrorMessage error={viewState.error} onRetry={retryGenerate} />
-      )}
+      {viewState.type === "error" && <ErrorMessage error={viewState.error} onRetry={retryGenerate} />}
 
       {/* Generated Proposals */}
       {viewState.type === "generated" && (

@@ -1,8 +1,5 @@
 import { useState, useCallback } from "react";
-import type {
-  GenerationViewState,
-  ProposalWithStatus,
-} from "../GenerateView.types";
+import type { GenerationViewState, ProposalWithStatus } from "../GenerateView.types";
 import type {
   CreateGenerationRequestDTO,
   CreateGenerationResponseDTO,
@@ -38,16 +35,12 @@ export function useFlashcardGeneration() {
         }
 
         if (response.status === 429) {
-          throw new Error(
-            "You've made too many requests. Please wait a few minutes and try again."
-          );
+          throw new Error("You've made too many requests. Please wait a few minutes and try again.");
         }
 
         if (response.status === 400) {
           const error = await response.json();
-          throw new Error(
-            error.message || "Invalid text length. Please use 1000-10000 characters."
-          );
+          throw new Error(error.message || "Invalid text length. Please use 1000-10000 characters.");
         }
 
         throw new Error("Failed to generate flashcards. Please try again.");
@@ -55,12 +48,10 @@ export function useFlashcardGeneration() {
 
       const data: CreateGenerationResponseDTO = await response.json();
 
-      const proposals: ProposalWithStatus[] = data.proposals.map(
-        (proposal) => ({
-          original: proposal,
-          status: "pending" as const,
-        })
-      );
+      const proposals: ProposalWithStatus[] = data.proposals.map((proposal) => ({
+        original: proposal,
+        status: "pending" as const,
+      }));
 
       setViewState({
         type: "generated",
@@ -68,8 +59,7 @@ export function useFlashcardGeneration() {
         generationMetadata: data.generation,
       });
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "An unexpected error occurred";
+      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
       setViewState({ type: "error", error: errorMessage });
     }
   }, []);
@@ -133,9 +123,7 @@ export function useFlashcardGeneration() {
       return;
     }
 
-    const acceptedProposals = viewState.proposals.filter(
-      (p) => p.status === "accepted" || p.status === "edited"
-    );
+    const acceptedProposals = viewState.proposals.filter((p) => p.status === "accepted" || p.status === "edited");
 
     if (acceptedProposals.length === 0) {
       setViewState({ type: "error", error: "No flashcards to save" });
@@ -147,14 +135,8 @@ export function useFlashcardGeneration() {
     try {
       const requestBody: CreateFlashcardsRequestDTO = {
         flashcards: acceptedProposals.map((proposal) => ({
-          front:
-            proposal.status === "edited" && proposal.editedFront
-              ? proposal.editedFront
-              : proposal.original.front,
-          back:
-            proposal.status === "edited" && proposal.editedBack
-              ? proposal.editedBack
-              : proposal.original.back,
+          front: proposal.status === "edited" && proposal.editedFront ? proposal.editedFront : proposal.original.front,
+          back: proposal.status === "edited" && proposal.editedBack ? proposal.editedBack : proposal.original.back,
           source: proposal.status === "edited" ? "ai-edited" : "ai-full",
           generation_id: viewState.generationMetadata.id,
         })),
@@ -176,9 +158,7 @@ export function useFlashcardGeneration() {
 
         if (response.status === 400) {
           const error = await response.json();
-          throw new Error(
-            error.message || "Validation failed. Please check your flashcards."
-          );
+          throw new Error(error.message || "Validation failed. Please check your flashcards.");
         }
 
         throw new Error("Failed to save flashcards. Please try again.");
@@ -192,8 +172,7 @@ export function useFlashcardGeneration() {
         savedCount: data.flashcards.length,
       });
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "An unexpected error occurred";
+      const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
 
       // Return to generated state with error message
       setViewState((currentState) => {

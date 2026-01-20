@@ -1,11 +1,7 @@
 import { Button } from "@/components/ui/button";
 import type { SaveActionsBarProps } from "./GenerateView.types";
 
-export function SaveActionsBar({
-  acceptedCount,
-  onSaveAll,
-  isSaving,
-}: SaveActionsBarProps) {
+export function SaveActionsBar({ acceptedCount, onSaveAll, isSaving }: SaveActionsBarProps) {
   const isDisabled = acceptedCount === 0 || isSaving;
 
   return (
@@ -16,10 +12,8 @@ export function SaveActionsBar({
             "No flashcards accepted yet"
           ) : (
             <>
-              <span className="font-semibold text-foreground">
-                {acceptedCount}
-              </span>{" "}
-              flashcard{acceptedCount === 1 ? "" : "s"} ready to save
+              <span className="font-semibold text-foreground">{acceptedCount}</span> flashcard
+              {acceptedCount === 1 ? "" : "s"} ready to save
             </>
           )}
         </p>

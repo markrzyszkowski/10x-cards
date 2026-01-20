@@ -4,9 +4,7 @@ export function LoadingState() {
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <p className="text-lg text-muted-foreground">
-          Generating flashcards...
-        </p>
+        <p className="text-lg text-muted-foreground">Generating flashcards...</p>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
         {Array.from({ length: 6 }).map((_, i) => (

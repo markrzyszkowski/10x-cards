@@ -11,9 +11,7 @@ export function ProposalsList({
   onSaveAll,
   isSaving,
 }: ProposalsListProps) {
-  const acceptedCount = proposals.filter(
-    (p) => p.status === "accepted" || p.status === "edited"
-  ).length;
+  const acceptedCount = proposals.filter((p) => p.status === "accepted" || p.status === "edited").length;
 
   return (
     <div className="space-y-6">
@@ -37,11 +35,7 @@ export function ProposalsList({
         ))}
       </div>
 
-      <SaveActionsBar
-        acceptedCount={acceptedCount}
-        onSaveAll={onSaveAll}
-        isSaving={isSaving}
-      />
+      <SaveActionsBar acceptedCount={acceptedCount} onSaveAll={onSaveAll} isSaving={isSaving} />
     </div>
   );
 }

@@ -3,13 +3,7 @@ import { ProposalDisplay } from "./ProposalDisplay";
 import { ProposalEdit } from "./ProposalEdit";
 import type { ProposalCardProps } from "./GenerateView.types";
 
-export function ProposalCard({
-  proposal,
-  index,
-  onAccept,
-  onEdit,
-  onReject,
-}: ProposalCardProps) {
+export function ProposalCard({ proposal, index, onAccept, onEdit, onReject }: ProposalCardProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleAccept = () => {
@@ -34,14 +28,10 @@ export function ProposalCard({
   };
 
   const displayFront =
-    proposal.status === "edited" && proposal.editedFront
-      ? proposal.editedFront
-      : proposal.original.front;
+    proposal.status === "edited" && proposal.editedFront ? proposal.editedFront : proposal.original.front;
 
   const displayBack =
-    proposal.status === "edited" && proposal.editedBack
-      ? proposal.editedBack
-      : proposal.original.back;
+    proposal.status === "edited" && proposal.editedBack ? proposal.editedBack : proposal.original.back;
 
   if (isEditing) {
     return (
