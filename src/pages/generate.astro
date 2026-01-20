@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { GenerateView } from "../components/GenerateView";
+
+// TODO: Add authentication check when auth is implemented
+// const user = await Astro.locals.supabase.auth.getUser();
+// if (!user.data.user) {
+//   return Astro.redirect("/login");
+// }
+---
+
+<Layout title="Generate Flashcards - 10x Cards">
+  <GenerateView client:load />
+</Layout>
