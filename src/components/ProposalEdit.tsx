@@ -106,7 +106,7 @@ export function ProposalEdit({ initialFront, initialBack, onSave, onCancel }: Pr
             value={back}
             onChange={handleBackChange}
             placeholder="Answer or explanation"
-            className={`min-h-[100px] resize-y ${backError ? "border-destructive" : ""}`}
+            className={`min-h-[100px] max-h-[100px] resize-y overflow-y-auto ${backError ? "border-destructive" : ""}`}
             aria-describedby="back-counter back-error"
           />
           <div className="flex items-center justify-between">

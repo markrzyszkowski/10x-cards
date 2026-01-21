@@ -46,7 +46,7 @@ export function GenerationForm({ onGenerate, isGenerating, disabled = false }: G
           value={sourceText}
           onChange={handleChange}
           disabled={isGenerating || disabled}
-          className="min-h-[200px] resize-y"
+          className="min-h-[200px] max-h-[200px] resize-y overflow-y-auto"
           aria-describedby="char-counter"
         />
         <div className="flex items-center justify-between">
