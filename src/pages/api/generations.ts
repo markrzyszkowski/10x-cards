@@ -83,7 +83,7 @@ export async function POST(context: APIContext) {
     // Step 5: Generate flashcard proposals using AI
     let aiResult;
     try {
-      aiResult = await generationService.generateFlashcards(sourceText, userId);
+      aiResult = await generationService.generateFlashcards(sourceText);
     } catch (error) {
       // Log error to database
       const aiError = error as AIGenerationError;
