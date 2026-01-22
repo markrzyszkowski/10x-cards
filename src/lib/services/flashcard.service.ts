@@ -1,6 +1,6 @@
 import type { SupabaseClient } from "@/db/supabase.client.ts";
-import type { CreateFlashcardDTO, FlashcardDTO, PaginatedFlashcardsResponseDTO } from "@/types.ts";
-import type { TablesInsert } from "@/db/database.types.ts";
+import type { CreateFlashcardDTO, FlashcardDTO, PaginatedFlashcardsResponseDTO, UpdateFlashcardDTO } from "@/types.ts";
+import type { TablesInsert, TablesUpdate } from "@/db/database.types.ts";
 
 /**
  * Query parameters for retrieving flashcards
@@ -169,6 +169,103 @@ class FlashcardService {
     }
 
     return flashcard as FlashcardDTO;
+  }
+
+  /**
+   * Updates an existing flashcard by ID for a specific user
+   * Automatically converts source from 'ai-full' to 'ai-edited' when flashcard is edited
+   *
+   * @param userId - The authenticated user's ID
+   * @param flashcardId - The ID of the flashcard to update
+   * @param updates - Partial update data (front and/or back)
+   * @param supabase - Supabase client instance
+   * @returns Updated flashcard if found and owned by user, null otherwise
+   * @throws Error if database query fails
+   */
+  async updateFlashcard(
+    userId: string,
+    flashcardId: number,
+    updates: UpdateFlashcardDTO,
+    supabase: SupabaseClient
+  ): Promise<FlashcardDTO | null> {
+    // Step 1: Fetch current flashcard to verify ownership and get current source
+    const { data: currentFlashcard, error: fetchError } = await supabase
+      .from("flashcards")
+      .select("id, source")
+      .eq("id", flashcardId)
+      .eq("user_id", userId)
+      .single();
+
+    if (fetchError) {
+      // PGRST116 is the "no rows returned" error code from PostgREST
+      // This is expected when flashcard doesn't exist or isn't owned by user
+      if (fetchError.code === "PGRST116") {
+        return null;
+      }
+
+      // Any other error is unexpected and should be thrown
+      console.error("Failed to retrieve flashcard for update:", fetchError);
+      throw new Error("Failed to retrieve flashcard");
+    }
+
+    // Step 2: Determine if source needs to be updated
+    // Convert 'ai-full' to 'ai-edited' when flashcard is edited
+    const shouldUpdateSource = currentFlashcard.source === "ai-full";
+    const updatedSource = shouldUpdateSource ? "ai-edited" : currentFlashcard.source;
+
+    // Step 3: Build update payload
+    const updatePayload: TablesUpdate<"flashcards"> = {
+      ...updates,
+    };
+
+    // Only include source in update if it changed
+    if (shouldUpdateSource) {
+      updatePayload.source = updatedSource;
+    }
+
+    // Step 4: Execute update query
+    const { data: updatedFlashcard, error: updateError } = await supabase
+      .from("flashcards")
+      .update(updatePayload)
+      .eq("id", flashcardId)
+      .eq("user_id", userId)
+      .select("id, front, back, source, generation_id, created_at, updated_at")
+      .single();
+
+    if (updateError) {
+      console.error("Failed to update flashcard:", updateError);
+      throw new Error("Failed to update flashcard");
+    }
+
+    return updatedFlashcard as FlashcardDTO;
+  }
+
+  /**
+   * Deletes a flashcard by ID for a specific user
+   * Returns true if deleted, false if not found or not owned by user
+   *
+   * @param userId - The authenticated user's ID
+   * @param flashcardId - The ID of the flashcard to delete
+   * @param supabase - Supabase client instance
+   * @returns true if deleted successfully, false if not found or not owned
+   * @throws Error if database query fails
+   */
+  async deleteFlashcard(userId: string, flashcardId: number, supabase: SupabaseClient): Promise<boolean> {
+    // Execute DELETE query with user_id and id filters
+    // RLS will also enforce ownership as an additional safety layer
+    const { error, count } = await supabase
+      .from("flashcards")
+      .delete({ count: "exact" })
+      .eq("id", flashcardId)
+      .eq("user_id", userId);
+
+    if (error) {
+      console.error("Failed to delete flashcard:", error);
+      throw new Error("Failed to delete flashcard");
+    }
+
+    // Return true if at least one row was deleted, false otherwise
+    return (count ?? 0) > 0;
   }
 }
 
