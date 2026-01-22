@@ -11,8 +11,10 @@ export function useFlashcardGeneration() {
   const [viewState, setViewState] = useState<GenerationViewState>({
     type: "idle",
   });
+  const [lastSourceText, setLastSourceText] = useState<string>("");
 
   const generateFlashcards = useCallback(async (sourceText: string) => {
+    setLastSourceText(sourceText);
     setViewState({ type: "generating" });
 
     try {
@@ -185,8 +187,14 @@ export function useFlashcardGeneration() {
   }, [viewState]);
 
   const retryGenerate = useCallback(() => {
-    setViewState({ type: "idle" });
-  }, []);
+    if (lastSourceText) {
+      // Retry with the same source text
+      generateFlashcards(lastSourceText);
+    } else {
+      // No source text available, reset to idle
+      setViewState({ type: "idle" });
+    }
+  }, [lastSourceText, generateFlashcards]);
 
   return {
     viewState,

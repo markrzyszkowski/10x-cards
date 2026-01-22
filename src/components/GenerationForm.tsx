@@ -42,7 +42,7 @@ export function GenerationForm({ onGenerate, isGenerating, disabled = false }: G
         </label>
         <Textarea
           id="source-text"
-          placeholder="Paste your educational text here (1,000-10,000 characters)..."
+          placeholder="Paste your educational text here..."
           value={sourceText}
           onChange={handleChange}
           disabled={isGenerating || disabled}

@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { FlashcardsView } from "../components/FlashcardsView";
+
+export const prerender = false;
+
+// User authentication is handled by middleware
+// User will be available in Astro.locals.user if authenticated
+const user = Astro.locals.user;
+---
+
+<Layout title="Flashcards - 10x Cards" user={user}>
+  <FlashcardsView client:load />
+</Layout>

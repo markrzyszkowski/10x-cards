@@ -13,7 +13,7 @@ export const prerender = false;
 const getFlashcardsQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(50),
   offset: z.coerce.number().int().min(0).default(0),
-  source: z.enum(["ai-full", "ai-edited", "manual"]).optional(),
+  source: z.enum(["ai-full", "ai-edited", "manual"]).nullable().optional(),
   sort: z.enum(["created_at", "updated_at", "front"]).default("created_at"),
   order: z.enum(["asc", "desc"]).default("desc"),
 });
