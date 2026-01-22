@@ -133,8 +133,8 @@ export function ProfileView({ user }: ProfileViewProps) {
                 </Alert>
               )}
 
-              <div className="space-y-2">
-                <label htmlFor="confirmEmail" className="text-sm font-medium">
+              <div>
+                <label htmlFor="confirmEmail" className="text-sm font-medium block">
                   Type <span className="font-mono font-bold">{user.email}</span> to confirm
                 </label>
                 <Input
@@ -145,6 +145,7 @@ export function ProfileView({ user }: ProfileViewProps) {
                   onChange={(e) => setDeleteConfirmationText(e.target.value)}
                   disabled={isDeleting}
                   aria-invalid={!!error}
+                  className="mt-3"
                 />
               </div>
 
