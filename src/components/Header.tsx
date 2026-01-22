@@ -57,12 +57,6 @@ export function Header({ user }: HeaderProps) {
             >
               My Flashcards
             </a>
-            <a
-              href="/study"
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-            >
-              Study
-            </a>
           </nav>
         </div>
 

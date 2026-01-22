@@ -1,9 +1,22 @@
 import type { APIContext } from "astro";
 import { z } from "zod";
-import type { CreateFlashcardsRequestDTO, CreateFlashcardsResponseDTO } from "@/types.ts";
+import type {
+  CreateFlashcardsRequestDTO,
+  CreateFlashcardsResponseDTO,
+  PaginatedFlashcardsResponseDTO,
+} from "@/types.ts";
 import { flashcardService } from "@/lib/services/flashcard.service.ts";
 
 export const prerender = false;
+
+// Validation schema for GET query parameters
+const getFlashcardsQuerySchema = z.object({
+  limit: z.coerce.number().int().min(1).max(100).default(50),
+  offset: z.coerce.number().int().min(0).default(0),
+  source: z.enum(["ai-full", "ai-edited", "manual"]).optional(),
+  sort: z.enum(["created_at", "updated_at", "front"]).default("created_at"),
+  order: z.enum(["asc", "desc"]).default("desc"),
+});
 
 // Validation schema for individual flashcard
 const createFlashcardSchema = z
@@ -120,6 +133,104 @@ export async function POST(context: APIContext) {
     return new Response(
       JSON.stringify({
         error: "An unexpected error occurred. Please try again.",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  }
+}
+
+/**
+ * GET /api/flashcards
+ * Retrieves paginated, filtered, and sorted flashcards for the authenticated user
+ *
+ * @param context - Astro API context with authentication and database access
+ * @returns 200 with paginated flashcards, or error response
+ */
+export async function GET(context: APIContext) {
+  try {
+    // Step 1: Authenticate user
+    const {
+      data: { user },
+      error: authError,
+    } = await context.locals.supabase.auth.getUser();
+
+    if (authError || !user) {
+      return new Response(JSON.stringify({ error: "Unauthorized", message: "Valid authentication token required" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const userId = user.id;
+
+    // Step 2: Parse and validate query parameters
+    const url = new URL(context.request.url);
+    const queryParams = {
+      limit: url.searchParams.get("limit"),
+      offset: url.searchParams.get("offset"),
+      source: url.searchParams.get("source"),
+      sort: url.searchParams.get("sort"),
+      order: url.searchParams.get("order"),
+    };
+
+    let validatedParams;
+    try {
+      validatedParams = getFlashcardsQuerySchema.parse(queryParams);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const firstError = error.errors[0];
+        const field = firstError?.path.join(".") || "parameter";
+        const message = firstError?.message || "Invalid query parameter";
+        return new Response(
+          JSON.stringify({
+            error: "Invalid query parameters",
+            message: `${field}: ${message}`,
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+      return new Response(JSON.stringify({ error: "Invalid query parameters" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Step 3: Retrieve flashcards via service
+    let result: PaginatedFlashcardsResponseDTO;
+    try {
+      result = await flashcardService.getFlashcards(userId, validatedParams, context.locals.supabase);
+    } catch (error) {
+      console.error("Error retrieving flashcards:", error);
+      return new Response(
+        JSON.stringify({
+          error: "Internal server error",
+          message: "An unexpected error occurred",
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // Step 4: Return paginated response
+    return new Response(JSON.stringify(result), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    // Catch-all for unexpected errors
+    console.error("Unexpected error in GET /api/flashcards:", error);
+    return new Response(
+      JSON.stringify({
+        error: "Internal server error",
+        message: "An unexpected error occurred. Please try again.",
       }),
       {
         status: 500,
