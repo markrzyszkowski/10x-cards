@@ -1,0 +1,15 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { RegisterForm } from "../components/RegisterForm";
+
+export const prerender = false;
+
+// Check if user is already authenticated and redirect to /generate
+if (Astro.locals.user) {
+  return Astro.redirect("/generate");
+}
+---
+
+<Layout title="Sign Up - 10x Cards">
+  <RegisterForm client:load />
+</Layout>

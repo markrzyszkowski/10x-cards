@@ -1,7 +1,12 @@
 ---
-import Layout from "../layouts/Layout.astro";
+export const prerender = false;
 
-return Astro.redirect("/generate");
+// Redirect based on authentication status
+if (Astro.locals.user) {
+  // Authenticated users go to generate page
+  return Astro.redirect("/generate");
+} else {
+  // Unauthenticated users go to login page
+  return Astro.redirect("/login");
+}
 ---
-
-<Layout />

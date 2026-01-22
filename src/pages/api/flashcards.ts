@@ -42,26 +42,22 @@ const createFlashcardsRequestSchema = z.object({
 export async function POST(context: APIContext) {
   try {
     // Step 1: Authenticate user
-    // TODO: Implement authentication
-    // const {
-    //   data: { user },
-    //   error: authError,
-    // } = await context.locals.supabase.auth.getUser();
-    //
-    // if (authError || !user) {
-    //   return new Response(
-    //     JSON.stringify({ error: "Authentication required" }),
-    //     {
-    //       status: 401,
-    //       headers: { "Content-Type": "application/json" },
-    //     }
-    //   );
-    // }
-    //
-    // const userId = user.id;
+    const {
+      data: { user },
+      error: authError,
+    } = await context.locals.supabase.auth.getUser();
 
-    // Temporary hardcoded user ID for testing
-    const userId = "bdc3271c-9353-43a1-9566-5add1f7ed69e";
+    if (authError || !user) {
+      return new Response(
+        JSON.stringify({ error: "Authentication required" }),
+        {
+          status: 401,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    const userId = user.id;
 
     // Step 2: Parse and validate request body
     let requestBody: CreateFlashcardsRequestDTO;

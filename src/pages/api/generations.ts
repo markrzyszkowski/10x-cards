@@ -24,23 +24,20 @@ const createGenerationRequestSchema = z.object({
  */
 export async function POST(context: APIContext) {
   try {
-    // TODO: Implement authentication
-    // const {
-    //   data: { user },
-    //   error: authError,
-    // } = await context.locals.supabase.auth.getUser();
-    //
-    // if (authError || !user) {
-    //   return new Response(JSON.stringify({ error: "Unauthorized" }), {
-    //     status: 401,
-    //     headers: { "Content-Type": "application/json" },
-    //   });
-    // }
-    //
-    // const userId = user.id;
+    // Step 1: Authenticate user
+    const {
+      data: { user },
+      error: authError,
+    } = await context.locals.supabase.auth.getUser();
 
-    // Temporary hardcoded user ID for testing
-    const userId = "bdc3271c-9353-43a1-9566-5add1f7ed69e";
+    if (authError || !user) {
+      return new Response(JSON.stringify({ error: "Authentication required" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    const userId = user.id;
 
     // Step 2: Parse and validate request body
     let requestBody: CreateGenerationRequestDTO;
@@ -139,12 +136,7 @@ export async function POST(context: APIContext) {
 
     // Step 7: Format and return response
     const response: CreateGenerationResponseDTO = {
-      generation: {
-        id: insertedGeneration.id,
-        model: insertedGeneration.model,
-        generated_count: insertedGeneration.generated_count,
-        generation_duration: insertedGeneration.generation_duration,
-      } as GenerationMetadataDTO,
+      generation: insertedGeneration as GenerationMetadataDTO,
       proposals: aiResult.proposals,
     };
 

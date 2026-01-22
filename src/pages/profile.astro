@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { ProfileView } from "../components/ProfileView";
+
+export const prerender = false;
+
+// User authentication is handled by middleware
+// Get full user data from Supabase for profile information
+const { data: { user: fullUser } } = await Astro.locals.supabase.auth.getUser();
+
+if (!fullUser) {
+  return Astro.redirect("/login");
+}
+
+const user = Astro.locals.user;
+
+// Prepare user data for ProfileView
+const profileUser = {
+  id: fullUser.id,
+  email: fullUser.email!,
+  created_at: fullUser.created_at,
+};
+---
+
+<Layout title="Profile - 10x Cards" user={user}>
+  <ProfileView client:load user={profileUser} />
+</Layout>
