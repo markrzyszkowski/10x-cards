@@ -1,5 +1,9 @@
 import type { CharacterCounterProps } from "./GenerateView.types";
 
+const formatNumber = (num: number): string => {
+  return num.toLocaleString("en-US");
+};
+
 export function CharacterCounter({ count, min, max }: CharacterCounterProps) {
   const getColorClass = () => {
     if (count < min || count > max) {
@@ -13,7 +17,7 @@ export function CharacterCounter({ count, min, max }: CharacterCounterProps) {
 
   return (
     <span className={`text-sm font-medium ${getColorClass()}`}>
-      {count} / {max} characters (min: {min})
+      {formatNumber(count)} / {formatNumber(max)} characters (min: {formatNumber(min)})
     </span>
   );
 }

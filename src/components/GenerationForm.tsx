@@ -33,16 +33,16 @@ export function GenerationForm({ onGenerate, isGenerating, disabled = false }: G
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="space-y-2">
+      <div className="space-y-3">
         <label
           htmlFor="source-text"
-          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          className="block text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-3"
         >
           Source Text
         </label>
         <Textarea
           id="source-text"
-          placeholder="Paste your educational text here (1000-10000 characters)..."
+          placeholder="Paste your educational text here (1,000-10,000 characters)..."
           value={sourceText}
           onChange={handleChange}
           disabled={isGenerating || disabled}
