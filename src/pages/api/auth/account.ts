@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { createSupabaseServerInstance } from "../../../db/supabase.client";
+import { createSupabaseServerInstance, createSupabaseAdminClient } from "@/db/supabase.client.ts";
 
 export const prerender = false;
 
@@ -18,62 +18,71 @@ export const DELETE: APIRoute = async ({ request, cookies }) => {
     } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      return new Response(
-        JSON.stringify({ error: "Authentication required" }),
-        {
-          status: 401,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return new Response(JSON.stringify({ error: "Authentication required" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     const userId = user.id;
 
     // Delete user data in cascade order (per GDPR requirements)
     // 1. Delete generation error logs
-    const { error: logsError } = await supabase
-      .from("generation_error_logs")
-      .delete()
-      .eq("user_id", userId);
+    const { error: logsError } = await supabase.from("generation_error_logs").delete().eq("user_id", userId);
 
     if (logsError) {
       console.error("Error deleting generation error logs:", logsError);
-      return new Response(
-        JSON.stringify({ error: "Failed to delete account data. Please try again" }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return new Response(JSON.stringify({ error: "Failed to delete account data. Please try again" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // 2. Delete generations
-    const { error: generationsError } = await supabase
-      .from("generations")
-      .delete()
-      .eq("user_id", userId);
+    const { error: generationsError } = await supabase.from("generations").delete().eq("user_id", userId);
 
     if (generationsError) {
       console.error("Error deleting generations:", generationsError);
-      return new Response(
-        JSON.stringify({ error: "Failed to delete account data. Please try again" }),
-        {
-          status: 500,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return new Response(JSON.stringify({ error: "Failed to delete account data. Please try again" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // 3. Delete flashcards
-    const { error: flashcardsError } = await supabase
-      .from("flashcards")
-      .delete()
-      .eq("user_id", userId);
+    const { error: flashcardsError } = await supabase.from("flashcards").delete().eq("user_id", userId);
 
     if (flashcardsError) {
       console.error("Error deleting flashcards:", flashcardsError);
+      return new Response(JSON.stringify({ error: "Failed to delete account data. Please try again" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // 4. Delete Supabase Auth user account using admin client
+    try {
+      const adminClient = createSupabaseAdminClient();
+      const { error: deleteUserError } = await adminClient.auth.admin.deleteUser(userId);
+
+      if (deleteUserError) {
+        console.error("Error deleting auth user:", deleteUserError);
+        return new Response(
+          JSON.stringify({
+            error: "Failed to delete user account. Please try again",
+          }),
+          {
+            status: 500,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+      }
+    } catch (adminError) {
+      console.error("Admin client error:", adminError);
       return new Response(
-        JSON.stringify({ error: "Failed to delete account data. Please try again" }),
+        JSON.stringify({
+          error: "Failed to complete account deletion. Please try again",
+        }),
         {
           status: 500,
           headers: { "Content-Type": "application/json" },
@@ -81,17 +90,13 @@ export const DELETE: APIRoute = async ({ request, cookies }) => {
       );
     }
 
-    // 4. Sign out user (clears session)
+    // 5. Sign out user (clears session cookies)
     const { error: signOutError } = await supabase.auth.signOut();
 
     if (signOutError) {
       console.error("Error signing out:", signOutError);
+      // Don't fail the request if sign out fails - user is already deleted
     }
-
-    // Note: Supabase Auth user deletion via admin API requires service role key
-    // For MVP, we'll rely on RLS policies and cascade deletion
-    // The user record in auth.users will remain but with all data deleted
-    // Future enhancement: Add admin endpoint to fully delete auth.users record
 
     return new Response(
       JSON.stringify({
@@ -104,12 +109,9 @@ export const DELETE: APIRoute = async ({ request, cookies }) => {
     );
   } catch (error) {
     console.error("Account deletion error:", error);
-    return new Response(
-      JSON.stringify({ error: "An unexpected error occurred. Please try again" }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({ error: "An unexpected error occurred. Please try again" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 };

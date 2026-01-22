@@ -6,6 +6,7 @@ import type { Database } from "./database.types.ts";
 
 const supabaseUrl = import.meta.env.SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.SUPABASE_KEY;
+const supabaseServiceRoleKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
 
 // Client-side Supabase client with auth configuration
 export const supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKey, {
@@ -55,4 +56,21 @@ export const createSupabaseServerInstance = (context: {
   });
 
   return supabase;
+};
+
+// Create admin Supabase client with service role key for privileged operations
+// WARNING: Only use this on the server side. Never expose service role key to client.
+export const createSupabaseAdminClient = () => {
+  if (!supabaseServiceRoleKey) {
+    throw new Error(
+      "SUPABASE_SERVICE_ROLE_KEY is not configured. This is required for admin operations."
+    );
+  }
+
+  return createClient<Database>(supabaseUrl, supabaseServiceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
 };
