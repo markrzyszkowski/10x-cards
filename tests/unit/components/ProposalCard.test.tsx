@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { ProposalCard } from "./ProposalCard";
-import type { ProposalWithStatus } from "./GenerateView.types";
+import { ProposalCard } from "@/components/ProposalCard";
+import type { ProposalWithStatus } from "@/components/GenerateView.types";
 
 describe("ProposalCard", () => {
   const mockOnAccept = vi.fn();

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { rateLimitService } from "./rate-limit.service";
+import { rateLimitService } from "@/lib/services/rate-limit.service";
 
 describe("RateLimitService", () => {
   // Store original Date.now for restoration

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { ProposalsList } from "./ProposalsList";
-import type { ProposalWithStatus } from "./GenerateView.types";
+import { ProposalsList } from "@/components/ProposalsList";
+import type { ProposalWithStatus } from "@/components/GenerateView.types";
 
 const mockProposals: ProposalWithStatus[] = [
   {

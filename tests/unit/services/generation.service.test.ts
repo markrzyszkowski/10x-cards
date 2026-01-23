@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { generationService } from "./generation.service";
-import type { AIGenerationError } from "./generation.service";
-import { OpenRouterError } from "./openrouter.service";
+import { generationService } from "@/lib/services/generation.service";
+import type { AIGenerationError } from "@/lib/services/generation.service";
+import { OpenRouterError } from "@/lib/services/openrouter.service";
 import type { SupabaseClient } from "@/db/supabase.client";
 
 // Mock the openRouterService module
-vi.mock("./openrouter.service", () => ({
+vi.mock("@/lib/services/openrouter.service", () => ({
   openRouterService: {
     generateCompletion: vi.fn(),
   },
@@ -318,7 +318,7 @@ Line 3`;
   describe("error transformation", () => {
     it("should transform OpenRouterError to AIGenerationError", async () => {
       // Arrange
-      const { openRouterService } = await import("./openrouter.service");
+      const { openRouterService } = await import("@/lib/services/openrouter.service");
 
       vi.mocked(openRouterService.generateCompletion).mockRejectedValue(
         new OpenRouterError("RATE_LIMIT_ERROR", "Rate limit exceeded", "test-model", 429)
@@ -334,7 +334,7 @@ Line 3`;
 
     it("should transform generic Error to AIGenerationError", async () => {
       // Arrange
-      const { openRouterService } = await import("./openrouter.service");
+      const { openRouterService } = await import("@/lib/services/openrouter.service");
 
       vi.mocked(openRouterService.generateCompletion).mockRejectedValue(new Error("Generic error"));
 
@@ -348,7 +348,7 @@ Line 3`;
 
     it("should handle non-Error thrown values", async () => {
       // Arrange
-      const { openRouterService } = await import("./openrouter.service");
+      const { openRouterService } = await import("@/lib/services/openrouter.service");
 
       vi.mocked(openRouterService.generateCompletion).mockRejectedValue("string error");
 
@@ -364,7 +364,7 @@ Line 3`;
   describe("generateFlashcards integration", () => {
     it("should return successful result with proposals", async () => {
       // Arrange
-      const { openRouterService } = await import("./openrouter.service");
+      const { openRouterService } = await import("@/lib/services/openrouter.service");
 
       const mockResult = {
         model: "test-model",
@@ -395,7 +395,7 @@ Line 3`;
 
     it("should call openRouterService with correct schema", async () => {
       // Arrange
-      const { openRouterService } = await import("./openrouter.service");
+      const { openRouterService } = await import("@/lib/services/openrouter.service");
 
       vi.mocked(openRouterService.generateCompletion).mockResolvedValue({
         model: "test-model",
@@ -432,7 +432,7 @@ Line 3`;
   describe("business rules", () => {
     it("should use temperature of 0.7 for generation", async () => {
       // Arrange
-      const { openRouterService } = await import("./openrouter.service");
+      const { openRouterService } = await import("@/lib/services/openrouter.service");
 
       vi.mocked(openRouterService.generateCompletion).mockResolvedValue({
         model: "test-model",
@@ -456,7 +456,7 @@ Line 3`;
 
     it("should use maxTokens of 2000 for generation", async () => {
       // Arrange
-      const { openRouterService } = await import("./openrouter.service");
+      const { openRouterService } = await import("@/lib/services/openrouter.service");
 
       vi.mocked(openRouterService.generateCompletion).mockResolvedValue({
         model: "test-model",
@@ -480,7 +480,7 @@ Line 3`;
 
     it("should include generation guidelines in system message", async () => {
       // Arrange
-      const { openRouterService } = await import("./openrouter.service");
+      const { openRouterService } = await import("@/lib/services/openrouter.service");
 
       vi.mocked(openRouterService.generateCompletion).mockResolvedValue({
         model: "test-model",

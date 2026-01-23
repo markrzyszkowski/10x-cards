@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { CharacterCounter } from "./CharacterCounter";
+import { CharacterCounter } from "@/components/CharacterCounter";
 
 describe("CharacterCounter", () => {
   const MIN = 1000;

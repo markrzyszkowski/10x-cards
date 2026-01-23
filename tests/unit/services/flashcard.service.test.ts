@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { flashcardService } from "./flashcard.service";
-import type { GetFlashcardsParams } from "./flashcard.service";
+import { flashcardService } from "@/lib/services/flashcard.service";
+import type { GetFlashcardsParams } from "@/lib/services/flashcard.service";
 import type { CreateFlashcardDTO, UpdateFlashcardDTO } from "@/types";
 import type { SupabaseClient } from "@/db/supabase.client";
 

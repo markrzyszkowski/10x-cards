@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, waitFor, act } from "@testing-library/react";
-import { useFlashcardGeneration } from "./useFlashcardGeneration";
+import { useFlashcardGeneration } from "@/components/hooks/useFlashcardGeneration";
 import type { CreateGenerationResponseDTO, CreateFlashcardsResponseDTO } from "@/types";
 
 // Mock fetch globally

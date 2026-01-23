@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { FlashcardItem } from "./FlashcardItem";
-import type { FlashcardDTO } from "../types";
+import { FlashcardItem } from "@/components/FlashcardItem";
+import type { FlashcardDTO } from "@/types";
 
 const mockFlashcard: FlashcardDTO = {
   id: 1,
