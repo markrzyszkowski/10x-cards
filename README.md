@@ -8,6 +8,8 @@ AI-powered flash cards.
 - [React](https://react.dev/) v19.0.0 - UI library for building interactive components
 - [TypeScript](https://www.typescriptlang.org/) v5 - Type-safe JavaScript
 - [Tailwind CSS](https://tailwindcss.com/) v4.0.17 - Utility-first CSS framework
+- [Vitest](https://vitest.dev/) - Fast unit testing framework with native Vite integration
+- [Playwright](https://playwright.dev/) - End-to-end testing framework for cross-browser automation
 
 ## Prerequisites
 
@@ -48,6 +50,8 @@ npm run build
 - `npm run preview` - Preview production build
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Fix ESLint issues
+- `npm test` - Run unit tests with Vitest (when configured)
+- `npm run test:e2e` - Run end-to-end tests with Playwright (when configured)
 
 ## Project Structure
 

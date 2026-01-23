@@ -20,6 +20,13 @@
 * Access to a wide range of models (OpenAI, Anthropic, Google, and many others), allowing us to find a solution that offers high effectiveness at low cost
 * Allows setting spending limits on API keys
 
+### Testing – Comprehensive quality assurance
+
+* Vitest for unit and integration testing with native Vite integration, fast execution, and TypeScript support
+* Playwright for end-to-end testing with cross-browser support (Chromium, Firefox, WebKit) and reliable auto-wait functionality
+* Testing Library for React component testing with user-centric testing approach
+* Mock Service Worker (MSW) for API mocking in integration tests
+
 ### CI/CD and Hosting
 
 * GitHub Actions for building CI/CD pipelines
