@@ -2,15 +2,7 @@ import { ProposalCard } from "./ProposalCard";
 import { SaveActionsBar } from "./SaveActionsBar";
 import type { ProposalsListProps } from "./GenerateView.types";
 
-export function ProposalsList({
-  proposals,
-  generationId,
-  onAccept,
-  onEdit,
-  onReject,
-  onSaveAll,
-  isSaving,
-}: ProposalsListProps) {
+export function ProposalsList({ proposals, onAccept, onEdit, onReject, onSaveAll, isSaving }: ProposalsListProps) {
   const acceptedCount = proposals.filter((p) => p.status === "accepted" || p.status === "edited").length;
 
   return (

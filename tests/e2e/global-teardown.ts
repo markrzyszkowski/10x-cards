@@ -5,7 +5,8 @@ import { cleanupTestData, getTestDataCounts } from "./utils/database-cleanup";
  * Global teardown runs once after all tests complete
  * This cleans up test data from the database
  */
-async function globalTeardown(config: FullConfig) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function globalTeardown(_config: FullConfig) {
   console.log("\n");
   console.log("=".repeat(60));
   console.log("\n🧹 Running global teardown for E2E tests...\n");

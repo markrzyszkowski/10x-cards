@@ -71,7 +71,9 @@ export function FlashcardItem({ flashcard, onEdit, onDelete }: FlashcardItemProp
               aria-expanded={isExpanded}
             >
               <div className="flex items-start gap-2">
-                <p className="font-semibold leading-tight flex-1" data-test-id={`flashcard-front-text-${flashcard.id}`}>{flashcard.front}</p>
+                <p className="font-semibold leading-tight flex-1" data-test-id={`flashcard-front-text-${flashcard.id}`}>
+                  {flashcard.front}
+                </p>
                 {isExpanded ? (
                   <ChevronUp className="h-5 w-5 shrink-0 text-muted-foreground" />
                 ) : (
@@ -85,7 +87,12 @@ export function FlashcardItem({ flashcard, onEdit, onDelete }: FlashcardItemProp
 
       {isExpanded && (
         <CardContent className="border-t pt-6">
-          <p className="text-sm text-muted-foreground whitespace-pre-wrap" data-test-id={`flashcard-back-text-${flashcard.id}`}>{flashcard.back}</p>
+          <p
+            className="text-sm text-muted-foreground whitespace-pre-wrap"
+            data-test-id={`flashcard-back-text-${flashcard.id}`}
+          >
+            {flashcard.back}
+          </p>
         </CardContent>
       )}
 
@@ -110,7 +117,7 @@ export function FlashcardItem({ flashcard, onEdit, onDelete }: FlashcardItemProp
             size="sm"
             onClick={() => onDelete(flashcard)}
             aria-label="Delete flashcard"
-            className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
+            className="text-destructive hover:bg-destructive hover:text-white"
           >
             <Trash2 className="h-4 w-4 mr-1.5" />
             Delete

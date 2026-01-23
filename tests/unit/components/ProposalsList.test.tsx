@@ -164,9 +164,7 @@ describe("ProposalsList", () => {
     });
 
     it('uses singular "proposal" for single item', () => {
-      const singleProposal: ProposalWithStatus[] = [
-        { original: { front: "Q1", back: "A1" }, status: "pending" },
-      ];
+      const singleProposal: ProposalWithStatus[] = [{ original: { front: "Q1", back: "A1" }, status: "pending" }];
 
       render(
         <ProposalsList

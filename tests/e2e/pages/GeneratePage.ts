@@ -237,7 +237,7 @@ export class GeneratePage extends BasePage {
   async completeGenerationWorkflow(
     sourceText: string,
     acceptIndices: number[] = [],
-    editActions: Array<{ index: number; front: string; back: string }> = [],
+    editActions: { index: number; front: string; back: string }[] = [],
     rejectIndices: number[] = []
   ): Promise<void> {
     await this.generateFlashcards(sourceText);

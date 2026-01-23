@@ -200,10 +200,10 @@ export async function PATCH(context: APIContext) {
     }
 
     // Step 3: Parse and validate request body
-    let requestBody: any;
+    let requestBody: unknown;
     try {
       requestBody = await context.request.json();
-    } catch (error) {
+    } catch {
       return new Response(
         JSON.stringify({
           error: "Validation failed",

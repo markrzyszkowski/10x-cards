@@ -30,6 +30,7 @@ describe("useFlashcardGeneration", () => {
     locationHref = "";
 
     // Mock window.location
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     delete (window as any).location;
     window.location = {
       get href() {
@@ -55,6 +56,7 @@ describe("useFlashcardGeneration", () => {
 
   describe("generateFlashcards", () => {
     it("transitions to generating state when called", async () => {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       mockFetch.mockImplementation(() => new Promise(() => {})); // Never resolves
 
       const { result } = renderHook(() => useFlashcardGeneration());

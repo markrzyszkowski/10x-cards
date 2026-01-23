@@ -5,7 +5,8 @@ import { cleanupTestData, verifyTestUser, getTestDataCounts } from "./utils/data
  * Global setup runs once before all tests
  * This ensures we start with a clean database state
  */
-async function globalSetup(config: FullConfig) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function globalSetup(_config: FullConfig) {
   console.log("\n🚀 Running global setup for E2E tests...\n");
 
   // Verify test user exists

@@ -21,7 +21,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       expect(screen.getByText("Original Question")).toBeInTheDocument();
@@ -35,7 +41,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       expect(screen.getByText("Original Question")).toBeInTheDocument();
@@ -51,7 +63,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       expect(screen.getByText("Edited Question")).toBeInTheDocument();
@@ -68,7 +86,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       expect(screen.getByText("Original Question")).toBeInTheDocument();
@@ -82,7 +106,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       expect(screen.getByText("Original Answer")).toBeInTheDocument();
@@ -95,7 +125,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       expect(screen.getByText("Original Question")).toBeInTheDocument();
@@ -112,7 +148,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       await user.click(screen.getByRole("button", { name: /edit/i }));
@@ -132,7 +174,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       await user.click(screen.getByRole("button", { name: /edit/i }));
@@ -150,7 +198,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       await user.click(screen.getByRole("button", { name: /edit/i }));
@@ -173,7 +227,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={3} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={3}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       await user.click(screen.getByRole("button", { name: /accept/i }));
@@ -190,7 +250,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={5} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={5}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       await user.click(screen.getByRole("button", { name: /reject/i }));
@@ -207,7 +273,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={2} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={2}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       await user.click(screen.getByRole("button", { name: /edit/i }));
@@ -235,7 +307,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       await user.click(screen.getByRole("button", { name: /edit/i }));
@@ -254,7 +332,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       // Should still render without errors
@@ -270,7 +354,13 @@ describe("ProposalCard", () => {
       };
 
       render(
-        <ProposalCard proposal={proposal} index={0} onAccept={mockOnAccept} onEdit={mockOnEdit} onReject={mockOnReject} />
+        <ProposalCard
+          proposal={proposal}
+          index={0}
+          onAccept={mockOnAccept}
+          onEdit={mockOnEdit}
+          onReject={mockOnReject}
+        />
       );
 
       expect(screen.getByText(longFront)).toBeInTheDocument();

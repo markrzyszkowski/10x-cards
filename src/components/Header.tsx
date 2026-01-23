@@ -67,7 +67,14 @@ export function Header({ user }: HeaderProps) {
 
           {showUserMenu && (
             <>
-              <div className="fixed inset-0 z-10" onClick={() => setShowUserMenu(false)} />
+              <div
+                className="fixed inset-0 z-10"
+                onClick={() => setShowUserMenu(false)}
+                onKeyDown={(e) => e.key === "Escape" && setShowUserMenu(false)}
+                role="button"
+                tabIndex={0}
+                aria-label="Close menu"
+              />
               <div className="absolute right-0 z-20 mt-2 min-w-56 max-w-xs rounded-md border bg-card shadow-lg">
                 <div className="p-2">
                   <div className="px-2 py-1.5 text-sm text-muted-foreground border-b mb-1 pb-2 break-all">

@@ -9,10 +9,9 @@ dotenv.config({ path: path.resolve(process.cwd(), ".env.test") });
  * Database cleanup utilities for E2E tests
  */
 
-const SUPABASE_URL = process.env.SUPABASE_URL!;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const TEST_EMAIL = process.env.E2E_USERNAME || "test@example.com";
-const TEST_USER_ID = process.env.E2E_USER_ID;
 
 if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   throw new Error("Missing required environment variables: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY");

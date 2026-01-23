@@ -173,6 +173,7 @@ Line 3`;
 
     beforeEach(() => {
       // Create mock chain for Supabase client
+      /* eslint-disable @typescript-eslint/no-explicit-any */
       mockInsert = {
         select: vi.fn().mockReturnThis(),
       } as any;
@@ -187,8 +188,10 @@ Line 3`;
       mockSupabase = {
         from: vi.fn().mockReturnValue(mockFrom),
       } as any;
+      /* eslint-enable @typescript-eslint/no-explicit-any */
 
       // Spy on console.error
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     });
 

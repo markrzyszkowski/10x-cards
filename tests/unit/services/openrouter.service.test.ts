@@ -22,12 +22,7 @@ class TestableOpenRouterService {
   private readonly defaultModel: string;
   private readonly timeout: number;
 
-  constructor(config?: {
-    apiKey?: string;
-    baseUrl?: string;
-    defaultModel?: string;
-    timeout?: number;
-  }) {
+  constructor(config?: { apiKey?: string; baseUrl?: string; defaultModel?: string; timeout?: number }) {
     this.apiKey = config?.apiKey || "test-api-key";
     this.baseUrl = config?.baseUrl || "https://openrouter.ai/api/v1";
     this.defaultModel = config?.defaultModel || "meta-llama/llama-3.3-70b-instruct:free";
@@ -317,13 +312,12 @@ describe("OpenRouterService", () => {
       const schema = { name: "test", schema: { type: "object" } };
 
       // Act & Assert
-      await expect(service.generateCompletion("system message", "   \n\t  ", schema)).rejects.toThrow(
-        OpenRouterError
-      );
+      await expect(service.generateCompletion("system message", "   \n\t  ", schema)).rejects.toThrow(OpenRouterError);
     });
 
     it("should reject schema without name field", async () => {
       // Arrange
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const invalidSchema = { schema: { type: "object" } } as any;
 
       // Act & Assert
@@ -336,6 +330,7 @@ describe("OpenRouterService", () => {
 
     it("should reject schema without schema field", async () => {
       // Arrange
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const invalidSchema = { name: "test" } as any;
 
       // Act & Assert
@@ -344,8 +339,10 @@ describe("OpenRouterService", () => {
 
     it("should reject null or undefined schema", async () => {
       // Act & Assert
+      /* eslint-disable @typescript-eslint/no-explicit-any */
       await expect(service.generateCompletion("system", "user", null as any)).rejects.toThrow(OpenRouterError);
       await expect(service.generateCompletion("system", "user", undefined as any)).rejects.toThrow(OpenRouterError);
+      /* eslint-enable @typescript-eslint/no-explicit-any */
     });
 
     it("should accept valid inputs", async () => {
@@ -624,7 +621,7 @@ describe("OpenRouterService", () => {
       const jsonString = '[{"id": 1}, {"id": 2}]';
 
       // Act
-      const result = service.parseStructuredResponse<Array<{ id: number }>>(jsonString);
+      const result = service.parseStructuredResponse<{ id: number }[]>(jsonString);
 
       // Assert
       expect(result).toEqual([{ id: 1 }, { id: 2 }]);
@@ -632,7 +629,7 @@ describe("OpenRouterService", () => {
 
     it("should throw OpenRouterError for invalid JSON", () => {
       // Arrange
-      const invalidJson = '{invalid json}';
+      const invalidJson = "{invalid json}";
 
       // Act & Assert
       expect(() => service.parseStructuredResponse(invalidJson)).toThrow(OpenRouterError);
@@ -640,7 +637,7 @@ describe("OpenRouterService", () => {
 
     it("should throw OpenRouterError with INVALID_RESPONSE code for parse failure", () => {
       // Arrange
-      const invalidJson = 'not json at all';
+      const invalidJson = "not json at all";
 
       // Act & Assert
       try {

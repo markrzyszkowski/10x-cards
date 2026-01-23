@@ -5,10 +5,14 @@ import path from "node:path";
 // Load test environment variables
 dotenv.config({ path: path.resolve(process.cwd(), ".env.test") });
 
-const SUPABASE_URL = process.env.SUPABASE_URL!;
-const SUPABASE_KEY = process.env.SUPABASE_KEY!;
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_KEY;
 const TEST_EMAIL = process.env.E2E_USERNAME || "test@example.com";
 const TEST_PASSWORD = process.env.E2E_PASSWORD || "testpassword123";
+
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+  throw new Error("Missing required environment variables: SUPABASE_URL or SUPABASE_KEY");
+}
 
 async function verifyLogin() {
   console.log("\n🔐 Testing login credentials...\n");

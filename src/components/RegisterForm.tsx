@@ -88,7 +88,7 @@ export function RegisterForm() {
         <Card className="w-full max-w-md">
           <CardHeader>
             <CardTitle>Check your email</CardTitle>
-            <CardDescription>We've sent you a verification link</CardDescription>
+            <CardDescription>We&apos;ve sent you a verification link</CardDescription>
           </CardHeader>
           <CardContent>
             <Alert className="border-green-600 bg-green-50 dark:bg-green-950">
