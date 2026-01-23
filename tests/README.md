@@ -108,7 +108,7 @@ Configuration is in `playwright.config.ts`:
 
 - **Browsers**: Chromium, Firefox, WebKit
 - **Mobile**: Pixel 5, iPhone 12
-- **Base URL**: http://localhost:4321
+- **Base URL**: http://localhost:3000
 - **Auto-start dev server**: Yes
 
 ## Coverage Targets

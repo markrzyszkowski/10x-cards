@@ -10,15 +10,15 @@ export const TestConfig = {
    * Test user credentials
    */
   auth: {
-    email: process.env.E2E_TEST_EMAIL || "test@example.com",
-    password: process.env.E2E_TEST_PASSWORD || "testpassword123",
+    email: process.env.E2E_USERNAME || "test@example.com",
+    password: process.env.E2E_PASSWORD || "testpassword123",
   },
 
   /**
    * Application URLs
    */
   urls: {
-    base: process.env.BASE_URL || "http://localhost:4321",
+    base: process.env.BASE_URL || "http://localhost:3000",
     login: "/login",
     generate: "/generate",
     flashcards: "/flashcards",
