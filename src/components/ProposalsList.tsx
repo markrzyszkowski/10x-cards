@@ -14,7 +14,7 @@ export function ProposalsList({
   const acceptedCount = proposals.filter((p) => p.status === "accepted" || p.status === "edited").length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-test-id="proposals-list">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold">Generated Flashcards</h2>
         <p className="text-sm text-muted-foreground">

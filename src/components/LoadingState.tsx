@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function LoadingState() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-test-id="generate-loading-state">
       <div className="text-center">
         <p className="text-lg text-muted-foreground">Generating flashcards...</p>
       </div>

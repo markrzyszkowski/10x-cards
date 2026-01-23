@@ -40,6 +40,7 @@ export function ProposalCard({ proposal, index, onAccept, onEdit, onReject }: Pr
         initialBack={displayBack}
         onSave={handleSaveEdit}
         onCancel={handleCancelEdit}
+        index={index}
       />
     );
   }
@@ -52,6 +53,7 @@ export function ProposalCard({ proposal, index, onAccept, onEdit, onReject }: Pr
       onAccept={handleAccept}
       onEdit={handleEditClick}
       onReject={handleReject}
+      index={index}
     />
   );
 }

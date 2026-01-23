@@ -32,7 +32,7 @@ export function FlashcardsList({ flashcards, isLoading, onEdit, onDelete }: Flas
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3" data-test-id="flashcards-list">
       {flashcards.map((flashcard) => (
         <FlashcardItem key={flashcard.id} flashcard={flashcard} onEdit={onEdit} onDelete={onDelete} />
       ))}

@@ -48,12 +48,13 @@ export function GenerationForm({ onGenerate, isGenerating, disabled = false }: G
           disabled={isGenerating || disabled}
           className="min-h-[200px] max-h-[200px] resize-y overflow-y-auto"
           aria-describedby="char-counter"
+          data-test-id="generate-source-textarea"
         />
         <div className="flex items-center justify-between">
           <CharacterCounter count={sourceText.length} min={MIN_CHARS} max={MAX_CHARS} />
         </div>
       </div>
-      <Button type="submit" disabled={!isValid || isGenerating || disabled} className="w-full sm:w-auto">
+      <Button type="submit" disabled={!isValid || isGenerating || disabled} className="w-full sm:w-auto" data-test-id="generate-submit-button">
         {isGenerating ? "Generating..." : "Generate Flashcards"}
       </Button>
     </form>

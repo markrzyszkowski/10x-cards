@@ -9,7 +9,7 @@ import type { ProposalEditProps } from "./GenerateView.types";
 const MAX_FRONT_CHARS = 200;
 const MAX_BACK_CHARS = 500;
 
-export function ProposalEdit({ initialFront, initialBack, onSave, onCancel }: ProposalEditProps) {
+export function ProposalEdit({ initialFront, initialBack, onSave, onCancel, index }: ProposalEditProps & { index: number }) {
   const [front, setFront] = useState(initialFront);
   const [back, setBack] = useState(initialBack);
   const [frontError, setFrontError] = useState<string | null>(null);
@@ -70,7 +70,7 @@ export function ProposalEdit({ initialFront, initialBack, onSave, onCancel }: Pr
     back.length <= MAX_BACK_CHARS;
 
   return (
-    <Card onKeyDown={handleKeyDown}>
+    <Card onKeyDown={handleKeyDown} data-test-id={`proposal-edit-card-${index}`}>
       <CardHeader>
         <h3 className="text-sm font-medium text-muted-foreground">Edit Flashcard</h3>
       </CardHeader>
@@ -86,6 +86,7 @@ export function ProposalEdit({ initialFront, initialBack, onSave, onCancel }: Pr
             placeholder="Question or prompt"
             aria-describedby="front-counter front-error"
             className={frontError ? "border-destructive" : ""}
+            data-test-id={`proposal-edit-front-input-${index}`}
           />
           <div className="flex items-center justify-between">
             <CharacterCounter count={front.length} min={1} max={MAX_FRONT_CHARS} />
@@ -108,6 +109,7 @@ export function ProposalEdit({ initialFront, initialBack, onSave, onCancel }: Pr
             placeholder="Answer or explanation"
             className={`min-h-[100px] max-h-[100px] resize-y overflow-y-auto ${backError ? "border-destructive" : ""}`}
             aria-describedby="back-counter back-error"
+            data-test-id={`proposal-edit-back-input-${index}`}
           />
           <div className="flex items-center justify-between">
             <CharacterCounter count={back.length} min={1} max={MAX_BACK_CHARS} />
@@ -120,10 +122,10 @@ export function ProposalEdit({ initialFront, initialBack, onSave, onCancel }: Pr
         </div>
       </CardContent>
       <CardFooter className="flex gap-2">
-        <Button onClick={handleSave} disabled={!isValid} size="sm">
+        <Button onClick={handleSave} disabled={!isValid} size="sm" data-test-id={`proposal-edit-save-button-${index}`}>
           Save
         </Button>
-        <Button onClick={onCancel} variant="outline" size="sm">
+        <Button onClick={onCancel} variant="outline" size="sm" data-test-id={`proposal-edit-cancel-button-${index}`}>
           Cancel
         </Button>
       </CardFooter>

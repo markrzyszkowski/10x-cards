@@ -62,7 +62,7 @@ export function LoginForm() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <Alert variant="destructive">
+              <Alert variant="destructive" data-test-id="login-error-alert">
                 <AlertTitle>Error</AlertTitle>
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
@@ -81,6 +81,7 @@ export function LoginForm() {
                 disabled={isLoading}
                 required
                 aria-invalid={!!error}
+                data-test-id="login-email-input"
               />
             </div>
 
@@ -98,10 +99,11 @@ export function LoginForm() {
                 required
                 minLength={8}
                 aria-invalid={!!error}
+                data-test-id="login-password-input"
               />
             </div>
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full" disabled={isLoading} data-test-id="login-submit-button">
               {isLoading ? "Signing in..." : "Sign in"}
             </Button>
 

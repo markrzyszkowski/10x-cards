@@ -17,7 +17,7 @@ export function SaveActionsBar({ acceptedCount, onSaveAll, isSaving }: SaveActio
             </>
           )}
         </p>
-        <Button onClick={onSaveAll} disabled={isDisabled}>
+        <Button onClick={onSaveAll} disabled={isDisabled} data-test-id="proposals-save-all-button">
           {isSaving ? "Saving..." : "Save All Accepted"}
         </Button>
       </div>
