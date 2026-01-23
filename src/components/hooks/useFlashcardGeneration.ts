@@ -196,6 +196,12 @@ export function useFlashcardGeneration() {
     }
   }, [lastSourceText, generateFlashcards]);
 
+  const resetToIdle = useCallback(() => {
+    // Clear the last source text and reset to idle state
+    setLastSourceText("");
+    setViewState({ type: "idle" });
+  }, []);
+
   return {
     viewState,
     generateFlashcards,
@@ -204,5 +210,6 @@ export function useFlashcardGeneration() {
     rejectProposal,
     saveFlashcards,
     retryGenerate,
+    resetToIdle,
   };
 }

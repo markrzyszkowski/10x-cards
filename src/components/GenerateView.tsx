@@ -6,11 +6,19 @@ import { SuccessMessage } from "./SuccessMessage";
 import { useFlashcardGeneration } from "./hooks/useFlashcardGeneration";
 
 export function GenerateView() {
-  const { viewState, generateFlashcards, acceptProposal, editProposal, rejectProposal, saveFlashcards, retryGenerate } =
-    useFlashcardGeneration();
+  const {
+    viewState,
+    generateFlashcards,
+    acceptProposal,
+    editProposal,
+    rejectProposal,
+    saveFlashcards,
+    retryGenerate,
+    resetToIdle,
+  } = useFlashcardGeneration();
 
   const handleStartOver = () => {
-    retryGenerate();
+    resetToIdle();
   };
 
   return (
