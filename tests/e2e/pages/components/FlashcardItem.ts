@@ -63,10 +63,10 @@ export class FlashcardItem {
    * Expand card to show back text
    */
   async expand(): Promise<void> {
-    // Click on the card to expand it
-    await this.card.click();
+    // Click on the front text to expand it (the front text has the click handler)
+    await this.frontText.click();
     // Wait for back text to be visible
-    await this.backText.waitFor({ state: "visible" });
+    await this.backText.waitFor({ state: "visible", timeout: 5000 });
   }
 
   /**

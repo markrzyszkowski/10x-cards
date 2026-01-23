@@ -81,7 +81,11 @@ export class LoginPage extends BasePage {
    * Wait for successful login redirect
    */
   async waitForLoginSuccess(): Promise<void> {
-    await this.waitForNavigation("/generate");
+    // Wait for navigation to complete - use regex to be more flexible
+    // This will throw if login fails and we stay on the login page
+    await this.page.waitForURL(/\/generate/, { timeout: 20000 });
+    // Wait for page to be fully loaded
+    await this.page.waitForLoadState("networkidle", { timeout: 15000 });
   }
 
   /**

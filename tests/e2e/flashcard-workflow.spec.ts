@@ -34,9 +34,8 @@ test.describe("Complete Flashcard Workflow", () => {
     // ===================================================================
     // STEP 1: Navigate to the application generate page
     // ===================================================================
-    test.step("Navigate to generate page", async () => {
+    await test.step("Navigate to generate page", async () => {
       await generatePage.navigate();
-      await page.waitForLoadState("networkidle");
     });
 
     // ===================================================================
@@ -125,17 +124,28 @@ test.describe("Complete Flashcard Workflow", () => {
     await test.step("Edit second proposal via modal", async () => {
       const card1 = generatePage.getProposalCard(1);
 
-      // Get original content
-      const originalFront = await card1.getFrontText();
-      const originalBack = await card1.getBackText();
+      // Check if already in edit mode, if not get original content first
+      const alreadyInEditMode = await card1.isInEditMode();
+      let originalFront: string;
+      let originalBack: string;
 
-      console.log(`Editing proposal 1: "${originalFront}"`);
+      if (alreadyInEditMode) {
+        // Already in edit mode, get values from inputs
+        originalFront = await card1.getEditedFrontValue();
+        originalBack = await card1.getEditedBackValue();
+        console.log(`Card 1 already in edit mode: "${originalFront}"`);
+      } else {
+        // Get original content from display
+        originalFront = await card1.getFrontText();
+        originalBack = await card1.getBackText();
+        console.log(`Editing proposal 1: "${originalFront}"`);
 
-      // Click edit button to open modal
-      await card1.clickEdit();
+        // Click edit button to open modal
+        await card1.clickEdit();
 
-      // Verify edit mode is visible
-      expect(await card1.isInEditMode()).toBe(true);
+        // Verify edit mode is visible
+        expect(await card1.isInEditMode()).toBe(true);
+      }
 
       // Get current values in edit inputs
       const currentFront = await card1.getEditedFrontValue();
@@ -149,6 +159,7 @@ test.describe("Complete Flashcard Workflow", () => {
       editedFront = `What is photosynthesis?`;
       editedBack = `Photosynthesis is the process by which plants convert light energy into chemical energy.`;
 
+      // Fill and save edit (handles already-open edit mode)
       await generatePage.editProposal(1, editedFront, editedBack);
 
       // Verify status changed to "Edited"

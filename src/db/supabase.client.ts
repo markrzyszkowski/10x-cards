@@ -21,9 +21,13 @@ export const supabaseClient = createClient<Database>(supabaseUrl, supabaseAnonKe
 export type SupabaseClient = typeof supabaseClient;
 
 // Cookie options for server-side client
+// In development/test, allow cookies over HTTP (secure: false)
+// In production, require HTTPS (secure: true)
+const isProduction = import.meta.env.PROD;
+
 export const cookieOptions: CookieOptionsWithName = {
   path: "/",
-  secure: true,
+  secure: isProduction,
   httpOnly: true,
   sameSite: "lax",
 };

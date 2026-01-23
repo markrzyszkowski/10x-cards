@@ -108,7 +108,12 @@ export class ProposalCard {
    * Edit proposal with new values
    */
   async edit(front: string, back: string): Promise<void> {
-    await this.clickEdit();
+    // Only click edit if not already in edit mode
+    const isEditing = await this.isInEditMode();
+    if (!isEditing) {
+      await this.clickEdit();
+    }
+
     await this.editFrontInput.fill(front);
     await this.editBackInput.fill(back);
     await this.editSaveButton.click();

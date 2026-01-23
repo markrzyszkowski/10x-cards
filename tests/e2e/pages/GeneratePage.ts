@@ -45,12 +45,19 @@ export class GeneratePage extends BasePage {
    */
   async navigate(): Promise<void> {
     await this.goto("/generate");
+    // Wait for page to be fully loaded
+    await this.page.waitForLoadState("networkidle");
   }
 
   /**
    * Fill source text textarea
    */
   async fillSourceText(text: string): Promise<void> {
+    // Wait for textarea to be ready and ensure only one is present
+    await this.sourceTextarea.waitFor({ state: "visible", timeout: 10000 });
+    // Clear existing content first
+    await this.sourceTextarea.clear();
+    // Fill with new text
     await this.sourceTextarea.fill(text);
   }
 
