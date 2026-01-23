@@ -16,11 +16,7 @@ export function EmptyState({ hasFilters }: EmptyStateProps) {
         <p className="mt-2 text-sm text-muted-foreground">
           No flashcards match the selected filters. Try adjusting your filter criteria.
         </p>
-        <Button
-          variant="outline"
-          className="mt-6"
-          onClick={() => window.location.reload()}
-        >
+        <Button variant="outline" className="mt-6" onClick={() => window.location.reload()}>
           Clear filters
         </Button>
       </div>
@@ -36,11 +32,7 @@ export function EmptyState({ hasFilters }: EmptyStateProps) {
       <p className="mt-2 text-sm text-muted-foreground">
         You haven't created any flashcards yet. Generate your first set of flashcards from text.
       </p>
-      <Button
-        variant="default"
-        className="mt-6"
-        onClick={() => (window.location.href = "/generate")}
-      >
+      <Button variant="default" className="mt-6" onClick={() => (window.location.href = "/generate")}>
         Generate your first flashcards
       </Button>
     </div>

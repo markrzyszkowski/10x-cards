@@ -17,7 +17,10 @@ export function UpdatePasswordForm() {
     // Validate that user has a valid session from password reset link
     // Supabase automatically detects and processes the token from URL hash
     const checkSession = async () => {
-      const { data: { session }, error } = await supabaseClient.auth.getSession();
+      const {
+        data: { session },
+        error,
+      } = await supabaseClient.auth.getSession();
 
       if (error || !session) {
         setTokenValid(false);
@@ -168,9 +171,7 @@ export function UpdatePasswordForm() {
                 minLength={8}
                 aria-invalid={!!error}
               />
-              <p className="text-xs text-muted-foreground">
-                Must contain uppercase, lowercase, and number
-              </p>
+              <p className="text-xs text-muted-foreground">Must contain uppercase, lowercase, and number</p>
             </div>
 
             <div className="space-y-2">

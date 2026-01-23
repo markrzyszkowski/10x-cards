@@ -35,10 +35,7 @@ export function GenerateView() {
         <GenerationForm
           onGenerate={generateFlashcards}
           isGenerating={viewState.type === "generating"}
-          disabled={
-            viewState.type === "generated" &&
-            !viewState.proposals.every((p) => p.status === "rejected")
-          }
+          disabled={viewState.type === "generated" && !viewState.proposals.every((p) => p.status === "rejected")}
         />
       )}
 

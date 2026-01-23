@@ -37,10 +37,7 @@ function parseCookieHeader(cookieHeader: string): { name: string; value: string 
 }
 
 // Create server-side Supabase client with cookie handling
-export const createSupabaseServerInstance = (context: {
-  headers: Headers;
-  cookies: AstroCookies;
-}) => {
+export const createSupabaseServerInstance = (context: { headers: Headers; cookies: AstroCookies }) => {
   const supabase = createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
     cookieOptions,
     cookies: {
@@ -48,9 +45,7 @@ export const createSupabaseServerInstance = (context: {
         return parseCookieHeader(context.headers.get("Cookie") ?? "");
       },
       setAll(cookiesToSet) {
-        cookiesToSet.forEach(({ name, value, options }) =>
-          context.cookies.set(name, value, options)
-        );
+        cookiesToSet.forEach(({ name, value, options }) => context.cookies.set(name, value, options));
       },
     },
   });
@@ -62,9 +57,7 @@ export const createSupabaseServerInstance = (context: {
 // WARNING: Only use this on the server side. Never expose service role key to client.
 export const createSupabaseAdminClient = () => {
   if (!supabaseServiceRoleKey) {
-    throw new Error(
-      "SUPABASE_SERVICE_ROLE_KEY is not configured. This is required for admin operations."
-    );
+    throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured. This is required for admin operations.");
   }
 
   return createClient<Database>(supabaseUrl, supabaseServiceRoleKey, {

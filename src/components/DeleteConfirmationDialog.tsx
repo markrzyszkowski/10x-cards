@@ -46,9 +46,7 @@ export function DeleteConfirmationDialog({
   if (!flashcard) return null;
 
   // Truncate front text if too long for preview
-  const truncatedFront = flashcard.front.length > 100
-    ? flashcard.front.substring(0, 100) + "..."
-    : flashcard.front;
+  const truncatedFront = flashcard.front.length > 100 ? flashcard.front.substring(0, 100) + "..." : flashcard.front;
 
   return (
     <AlertDialog open={isOpen} onOpenChange={(open) => !open && onClose()}>

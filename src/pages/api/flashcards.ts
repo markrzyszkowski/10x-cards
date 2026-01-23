@@ -61,13 +61,10 @@ export async function POST(context: APIContext) {
     } = await context.locals.supabase.auth.getUser();
 
     if (authError || !user) {
-      return new Response(
-        JSON.stringify({ error: "Authentication required" }),
-        {
-          status: 401,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return new Response(JSON.stringify({ error: "Authentication required" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     const userId = user.id;

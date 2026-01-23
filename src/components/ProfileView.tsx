@@ -105,10 +105,7 @@ export function ProfileView({ user }: ProfileViewProps) {
                   Permanently delete your account and all associated data
                 </p>
               </div>
-              <Button
-                variant="destructive"
-                onClick={() => setShowDeleteConfirmation(true)}
-              >
+              <Button variant="destructive" onClick={() => setShowDeleteConfirmation(true)}>
                 Delete Account
               </Button>
             </div>
@@ -117,7 +114,8 @@ export function ProfileView({ user }: ProfileViewProps) {
               <Alert variant="destructive">
                 <AlertTitle>Warning</AlertTitle>
                 <AlertDescription>
-                  This action cannot be undone. This will permanently delete your account and remove all your data including:
+                  This action cannot be undone. This will permanently delete your account and remove all your data
+                  including:
                   <ul className="list-disc list-inside mt-2 space-y-1">
                     <li>All flashcards</li>
                     <li>Generation history</li>

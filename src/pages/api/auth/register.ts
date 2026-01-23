@@ -9,35 +9,26 @@ export const POST: APIRoute = async ({ request, cookies }) => {
 
     // Validate input
     if (!email || !password) {
-      return new Response(
-        JSON.stringify({ error: "Email and password are required" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return new Response(JSON.stringify({ error: "Email and password are required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // Validate email length
     if (email.length > 255) {
-      return new Response(
-        JSON.stringify({ error: "Email must be less than 255 characters" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return new Response(JSON.stringify({ error: "Email must be less than 255 characters" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // Validate password strength
     if (password.length < 8) {
-      return new Response(
-        JSON.stringify({ error: "Password must be at least 8 characters" }),
-        {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      return new Response(JSON.stringify({ error: "Password must be at least 8 characters" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     // Create server-side Supabase client
@@ -88,12 +79,9 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     );
   } catch (error) {
     console.error("Registration error:", error);
-    return new Response(
-      JSON.stringify({ error: "An unexpected error occurred. Please try again" }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({ error: "An unexpected error occurred. Please try again" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 };

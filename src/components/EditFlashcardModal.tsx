@@ -1,14 +1,7 @@
 import { useState, useEffect } from "react";
 import type { FlashcardDTO, UpdateFlashcardDTO } from "../types";
 import type { EditFlashcardFormState } from "./FlashcardsView.types";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "./ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
 import { Alert } from "./ui/alert";
@@ -21,13 +14,7 @@ interface EditFlashcardModalProps {
   isSaving: boolean;
 }
 
-export function EditFlashcardModal({
-  flashcard,
-  isOpen,
-  onClose,
-  onSave,
-  isSaving,
-}: EditFlashcardModalProps) {
+export function EditFlashcardModal({ flashcard, isOpen, onClose, onSave, isSaving }: EditFlashcardModalProps) {
   const [formState, setFormState] = useState<EditFlashcardFormState>({
     front: "",
     back: "",
@@ -135,9 +122,7 @@ export function EditFlashcardModal({
 
   const handleCancel = () => {
     if (formState.isDirty) {
-      const confirmed = window.confirm(
-        "You have unsaved changes. Are you sure you want to discard them?"
-      );
+      const confirmed = window.confirm("You have unsaved changes. Are you sure you want to discard them?");
       if (!confirmed) return;
     }
     onClose();
@@ -162,9 +147,7 @@ export function EditFlashcardModal({
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle>Edit Flashcard</DialogTitle>
-          <DialogDescription>
-            Make changes to your flashcard. Both fields are required.
-          </DialogDescription>
+          <DialogDescription>Make changes to your flashcard. Both fields are required.</DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit}>
@@ -175,9 +158,7 @@ export function EditFlashcardModal({
                 <label htmlFor="front-text" className="text-sm font-medium">
                   Front (Question)
                 </label>
-                <span className={`text-xs ${getCharacterCountColor(frontCharCount, 200)}`}>
-                  {frontCharCount}/200
-                </span>
+                <span className={`text-xs ${getCharacterCountColor(frontCharCount, 200)}`}>{frontCharCount}/200</span>
               </div>
               <Textarea
                 id="front-text"
@@ -202,9 +183,7 @@ export function EditFlashcardModal({
                 <label htmlFor="back-text" className="text-sm font-medium">
                   Back (Answer)
                 </label>
-                <span className={`text-xs ${getCharacterCountColor(backCharCount, 500)}`}>
-                  {backCharCount}/500
-                </span>
+                <span className={`text-xs ${getCharacterCountColor(backCharCount, 500)}`}>{backCharCount}/500</span>
               </div>
               <Textarea
                 id="back-text"
@@ -232,12 +211,7 @@ export function EditFlashcardModal({
           </div>
 
           <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={handleCancel}
-              disabled={isSaving}
-            >
+            <Button type="button" variant="outline" onClick={handleCancel} disabled={isSaving}>
               Cancel
             </Button>
             <Button type="submit" disabled={isSaveDisabled}>

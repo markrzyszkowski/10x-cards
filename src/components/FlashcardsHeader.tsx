@@ -22,9 +22,7 @@ export function FlashcardsHeader({
       {/* Title and description */}
       <div className="space-y-2">
         <h1 className="text-4xl font-bold tracking-tight">Flashcards</h1>
-        <p className="text-lg text-muted-foreground">
-          Manage and review your saved flashcards
-        </p>
+        <p className="text-lg text-muted-foreground">Manage and review your saved flashcards</p>
       </div>
 
       {/* Filter controls */}

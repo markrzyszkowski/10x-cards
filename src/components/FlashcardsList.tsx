@@ -9,12 +9,7 @@ interface FlashcardsListProps {
   onDelete: (flashcard: FlashcardDTO) => void;
 }
 
-export function FlashcardsList({
-  flashcards,
-  isLoading,
-  onEdit,
-  onDelete,
-}: FlashcardsListProps) {
+export function FlashcardsList({ flashcards, isLoading, onEdit, onDelete }: FlashcardsListProps) {
   if (isLoading) {
     return (
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -39,12 +34,7 @@ export function FlashcardsList({
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {flashcards.map((flashcard) => (
-        <FlashcardItem
-          key={flashcard.id}
-          flashcard={flashcard}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
+        <FlashcardItem key={flashcard.id} flashcard={flashcard} onEdit={onEdit} onDelete={onDelete} />
       ))}
     </div>
   );

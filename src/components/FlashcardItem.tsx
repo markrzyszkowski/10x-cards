@@ -71,9 +71,7 @@ export function FlashcardItem({ flashcard, onEdit, onDelete }: FlashcardItemProp
               aria-expanded={isExpanded}
             >
               <div className="flex items-start gap-2">
-                <p className="font-semibold leading-tight flex-1">
-                  {flashcard.front}
-                </p>
+                <p className="font-semibold leading-tight flex-1">{flashcard.front}</p>
                 {isExpanded ? (
                   <ChevronUp className="h-5 w-5 shrink-0 text-muted-foreground" />
                 ) : (
@@ -87,34 +85,23 @@ export function FlashcardItem({ flashcard, onEdit, onDelete }: FlashcardItemProp
 
       {isExpanded && (
         <CardContent className="border-t pt-6">
-          <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-            {flashcard.back}
-          </p>
+          <p className="text-sm text-muted-foreground whitespace-pre-wrap">{flashcard.back}</p>
         </CardContent>
       )}
 
       <CardFooter className="mt-auto flex-col items-start gap-3 border-t">
         {/* Metadata row */}
         <div className="flex w-full items-center justify-between gap-2 text-xs text-muted-foreground">
-          <div className="flex items-center gap-2">
-            {getSourceBadge()}
-          </div>
+          <div className="flex items-center gap-2">{getSourceBadge()}</div>
           <div className="text-right">
             <div>Created: {formatDate(flashcard.created_at)}</div>
-            {flashcard.updated_at !== flashcard.created_at && (
-              <div>Updated: {formatDate(flashcard.updated_at)}</div>
-            )}
+            {flashcard.updated_at !== flashcard.created_at && <div>Updated: {formatDate(flashcard.updated_at)}</div>}
           </div>
         </div>
 
         {/* Action buttons row */}
         <div className="flex w-full items-center justify-end gap-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onEdit(flashcard)}
-            aria-label="Edit flashcard"
-          >
+          <Button variant="outline" size="sm" onClick={() => onEdit(flashcard)} aria-label="Edit flashcard">
             <Pencil className="h-4 w-4 mr-1.5" />
             Edit
           </Button>

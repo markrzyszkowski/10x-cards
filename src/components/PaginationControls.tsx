@@ -8,11 +8,7 @@ interface PaginationControlsProps {
   onNextPage: () => void;
 }
 
-export function PaginationControls({
-  pagination,
-  onPreviousPage,
-  onNextPage,
-}: PaginationControlsProps) {
+export function PaginationControls({ pagination, onPreviousPage, onNextPage }: PaginationControlsProps) {
   const { total, limit, offset, has_more } = pagination;
 
   const currentStart = offset + 1;
@@ -37,11 +33,7 @@ export function PaginationControls({
     }
   };
 
-  const handleKeyDown = (
-    event: React.KeyboardEvent,
-    action: () => void,
-    disabled: boolean
-  ) => {
+  const handleKeyDown = (event: React.KeyboardEvent, action: () => void, disabled: boolean) => {
     if (disabled) return;
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -53,9 +45,8 @@ export function PaginationControls({
     <div className="flex items-center justify-between border-t pt-6">
       {/* Page info */}
       <p className="text-sm text-muted-foreground">
-        Showing <span className="font-medium">{currentStart}</span> to{" "}
-        <span className="font-medium">{currentEnd}</span> of{" "}
-        <span className="font-medium">{total}</span> flashcards
+        Showing <span className="font-medium">{currentStart}</span> to <span className="font-medium">{currentEnd}</span>{" "}
+        of <span className="font-medium">{total}</span> flashcards
       </p>
 
       {/* Navigation buttons */}

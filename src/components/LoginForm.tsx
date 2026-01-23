@@ -107,19 +107,13 @@ export function LoginForm() {
 
             <div className="space-y-2 text-center text-sm">
               <div>
-                <a
-                  href="/reset-password"
-                  className="text-primary hover:underline underline-offset-4"
-                >
+                <a href="/reset-password" className="text-primary hover:underline underline-offset-4">
                   Forgot your password?
                 </a>
               </div>
               <div className="text-muted-foreground">
                 Don't have an account?{" "}
-                <a
-                  href="/register"
-                  className="text-primary hover:underline underline-offset-4"
-                >
+                <a href="/register" className="text-primary hover:underline underline-offset-4">
                   Sign up
                 </a>
               </div>

@@ -1,12 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import type { FlashcardsViewState, ApiErrorResponse } from "../FlashcardsView.types";
-import type {
-  FlashcardDTO,
-  PaginatedFlashcardsResponseDTO,
-  UpdateFlashcardDTO,
-  DeleteResponseDTO,
-} from "../../types";
+import type { FlashcardDTO, PaginatedFlashcardsResponseDTO, UpdateFlashcardDTO, DeleteResponseDTO } from "../../types";
 
 const DEFAULT_LIMIT = 50;
 
@@ -227,78 +222,81 @@ export function useFlashcards() {
   }, []);
 
   // Delete flashcard
-  const deleteFlashcard = useCallback(async (id: number) => {
-    setState((prev) => ({ ...prev, isDeleting: true }));
+  const deleteFlashcard = useCallback(
+    async (id: number) => {
+      setState((prev) => ({ ...prev, isDeleting: true }));
 
-    try {
-      const response = await fetch(`/api/flashcards/${id}`, {
-        method: "DELETE",
-      });
+      try {
+        const response = await fetch(`/api/flashcards/${id}`, {
+          method: "DELETE",
+        });
 
-      if (!response.ok) {
-        if (response.status === 401) {
-          toast.error("Your session has expired. Please log in again.");
-          window.location.href = "/login";
-          return;
+        if (!response.ok) {
+          if (response.status === 401) {
+            toast.error("Your session has expired. Please log in again.");
+            window.location.href = "/login";
+            return;
+          }
+
+          if (response.status === 404) {
+            // Flashcard already deleted
+            setState((prev) => ({
+              ...prev,
+              flashcards: prev.flashcards.filter((f) => f.id !== id),
+              isDeleteDialogOpen: false,
+              deletingFlashcard: null,
+              isDeleting: false,
+            }));
+            toast.error("This flashcard no longer exists");
+            return;
+          }
+
+          const error: ApiErrorResponse = await response.json();
+          throw new Error(error.message || "Failed to delete flashcard");
         }
 
-        if (response.status === 404) {
-          // Flashcard already deleted
-          setState((prev) => ({
+        const _result: DeleteResponseDTO = await response.json();
+
+        setState((prev) => {
+          const newFlashcards = prev.flashcards.filter((f) => f.id !== id);
+
+          // If page becomes empty and we're not on first page, go to previous page
+          let newOffset = prev.offset;
+          if (newFlashcards.length === 0 && prev.offset > 0) {
+            newOffset = Math.max(0, prev.offset - DEFAULT_LIMIT);
+          }
+
+          return {
             ...prev,
-            flashcards: prev.flashcards.filter((f) => f.id !== id),
+            flashcards: newFlashcards,
+            offset: newOffset,
             isDeleteDialogOpen: false,
             deletingFlashcard: null,
             isDeleting: false,
-          }));
-          toast.error("This flashcard no longer exists");
-          return;
-        }
+          };
+        });
 
-        const error: ApiErrorResponse = await response.json();
-        throw new Error(error.message || "Failed to delete flashcard");
-      }
+        toast.success("Flashcard deleted successfully");
 
-      const _result: DeleteResponseDTO = await response.json();
-
-      setState((prev) => {
-        const newFlashcards = prev.flashcards.filter((f) => f.id !== id);
-
-        // If page becomes empty and we're not on first page, go to previous page
-        let newOffset = prev.offset;
-        if (newFlashcards.length === 0 && prev.offset > 0) {
-          newOffset = Math.max(0, prev.offset - DEFAULT_LIMIT);
-        }
-
-        return {
+        // If offset changed, trigger refetch
+        setState((prev) => {
+          if (prev.flashcards.length === 0 && prev.offset > 0) {
+            fetchFlashcards();
+          }
+          return prev;
+        });
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : "Failed to delete flashcard";
+        setState((prev) => ({
           ...prev,
-          flashcards: newFlashcards,
-          offset: newOffset,
-          isDeleteDialogOpen: false,
-          deletingFlashcard: null,
+          error: errorMessage,
           isDeleting: false,
-        };
-      });
-
-      toast.success("Flashcard deleted successfully");
-
-      // If offset changed, trigger refetch
-      setState((prev) => {
-        if (prev.flashcards.length === 0 && prev.offset > 0) {
-          fetchFlashcards();
-        }
-        return prev;
-      });
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to delete flashcard";
-      setState((prev) => ({
-        ...prev,
-        error: errorMessage,
-        isDeleting: false,
-      }));
-      throw error; // Re-throw so dialog can handle it
-    }
-  }, [fetchFlashcards]);
+        }));
+        throw error; // Re-throw so dialog can handle it
+      }
+    },
+    [fetchFlashcards]
+  );
 
   // Refetch flashcards (for manual refresh)
   const refetchFlashcards = useCallback(() => {

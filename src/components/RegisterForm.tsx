@@ -99,10 +99,7 @@ export function RegisterForm() {
             </Alert>
 
             <div className="mt-6 text-center">
-              <a
-                href="/login"
-                className="text-primary hover:underline underline-offset-4 text-sm"
-              >
+              <a href="/login" className="text-primary hover:underline underline-offset-4 text-sm">
                 Return to sign in
               </a>
             </div>
@@ -160,9 +157,7 @@ export function RegisterForm() {
                 minLength={8}
                 aria-invalid={!!error}
               />
-              <p className="text-xs text-muted-foreground">
-                Must contain uppercase, lowercase, and number
-              </p>
+              <p className="text-xs text-muted-foreground">Must contain uppercase, lowercase, and number</p>
             </div>
 
             <div className="space-y-2">
@@ -188,10 +183,7 @@ export function RegisterForm() {
 
             <div className="text-center text-sm text-muted-foreground">
               Already have an account?{" "}
-              <a
-                href="/login"
-                className="text-primary hover:underline underline-offset-4"
-              >
+              <a href="/login" className="text-primary hover:underline underline-offset-4">
                 Sign in
               </a>
             </div>

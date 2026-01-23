@@ -45,10 +45,7 @@ export function Header({ user }: HeaderProps) {
             10x Cards
           </a>
           <nav className="hidden md:flex items-center gap-6">
-            <a
-              href="/generate"
-              className="text-sm font-medium hover:text-primary transition-colors"
-            >
+            <a href="/generate" className="text-sm font-medium hover:text-primary transition-colors">
               Generate
             </a>
             <a
@@ -61,34 +58,16 @@ export function Header({ user }: HeaderProps) {
         </div>
 
         <div className="relative">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setShowUserMenu(!showUserMenu)}
-            className="gap-2"
-          >
+          <Button variant="ghost" size="sm" onClick={() => setShowUserMenu(!showUserMenu)} className="gap-2">
             <span className="text-sm">{user.email}</span>
-            <svg
-              className="size-4 shrink-0"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
+            <svg className="size-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </Button>
 
           {showUserMenu && (
             <>
-              <div
-                className="fixed inset-0 z-10"
-                onClick={() => setShowUserMenu(false)}
-              />
+              <div className="fixed inset-0 z-10" onClick={() => setShowUserMenu(false)} />
               <div className="absolute right-0 z-20 mt-2 min-w-56 max-w-xs rounded-md border bg-card shadow-lg">
                 <div className="p-2">
                   <div className="px-2 py-1.5 text-sm text-muted-foreground border-b mb-1 pb-2 break-all">

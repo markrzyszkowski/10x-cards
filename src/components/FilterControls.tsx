@@ -1,12 +1,6 @@
 import { ArrowDownAZ, ArrowUpAZ } from "lucide-react";
 import { Button } from "./ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
 interface FilterControlsProps {
   source: "ai-full" | "ai-edited" | "manual" | undefined;
@@ -86,11 +80,7 @@ export function FilterControls({
         aria-label={sortOrder === "asc" ? "Sort ascending" : "Sort descending"}
         title={sortOrder === "asc" ? "Sort ascending" : "Sort descending"}
       >
-        {sortOrder === "asc" ? (
-          <ArrowUpAZ className="h-4 w-4" />
-        ) : (
-          <ArrowDownAZ className="h-4 w-4" />
-        )}
+        {sortOrder === "asc" ? <ArrowUpAZ className="h-4 w-4" /> : <ArrowDownAZ className="h-4 w-4" />}
       </Button>
     </div>
   );
