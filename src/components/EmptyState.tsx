@@ -30,7 +30,7 @@ export function EmptyState({ hasFilters }: EmptyStateProps) {
       </div>
       <h3 className="mt-4 text-lg font-semibold">No flashcards yet</h3>
       <p className="mt-2 text-sm text-muted-foreground">
-        You haven't created any flashcards yet. Generate your first set of flashcards from text.
+        You haven&apos;t created any flashcards yet. Generate your first set of flashcards from text.
       </p>
       <Button variant="default" className="mt-6" onClick={() => (window.location.href = "/generate")}>
         Generate your first flashcards

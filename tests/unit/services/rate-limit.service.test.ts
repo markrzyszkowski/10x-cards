@@ -2,8 +2,6 @@ import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
 import { rateLimitService } from "@/lib/services/rate-limit.service";
 
 describe("RateLimitService", () => {
-  // Store original Date.now for restoration
-  const originalDateNow = Date.now;
   let mockTime = 1000000000;
 
   beforeEach(() => {

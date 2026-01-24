@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 
 /**
  * Example E2E test file
@@ -71,7 +71,7 @@ test.describe("Example E2E Test Suite", () => {
     // await expect(page).toHaveTitle(/10x Cards/);
   });
 
-  test("should demonstrate form interaction", async ({ page }) => {
+  test("should demonstrate form interaction", async () => {
     // Example structure for form testing
     // await page.goto('/login');
     // await page.fill('input[type="email"]', 'test@example.com');
@@ -80,16 +80,14 @@ test.describe("Example E2E Test Suite", () => {
     // await expect(page).toHaveURL('/flashcards');
   });
 
-  test("should demonstrate assertion examples", async ({ page }) => {
+  test("should demonstrate assertion examples", async () => {
     // Page assertions
     // await expect(page).toHaveURL('/expected-url');
     // await expect(page).toHaveTitle('Expected Title');
-
     // Element assertions
     // await expect(page.locator('h1')).toBeVisible();
     // await expect(page.locator('button')).toBeEnabled();
     // await expect(page.locator('.error')).toHaveText('Error message');
-
     // Count assertions
     // await expect(page.locator('.item')).toHaveCount(5);
   });

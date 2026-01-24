@@ -34,9 +34,9 @@ export const onRequest = defineMiddleware(async ({ locals, cookies, url, request
   } = await supabase.auth.getUser();
 
   // Attach user to locals if authenticated
-  if (user) {
+  if (user && user.email) {
     locals.user = {
-      email: user.email!,
+      email: user.email,
       id: user.id,
     };
   }

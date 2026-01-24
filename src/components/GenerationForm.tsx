@@ -54,7 +54,12 @@ export function GenerationForm({ onGenerate, isGenerating, disabled = false }: G
           <CharacterCounter count={sourceText.length} min={MIN_CHARS} max={MAX_CHARS} />
         </div>
       </div>
-      <Button type="submit" disabled={!isValid || isGenerating || disabled} className="w-full sm:w-auto" data-test-id="generate-submit-button">
+      <Button
+        type="submit"
+        disabled={!isValid || isGenerating || disabled}
+        className="w-full sm:w-auto"
+        data-test-id="generate-submit-button"
+      >
         {isGenerating ? "Generating..." : "Generate Flashcards"}
       </Button>
     </form>

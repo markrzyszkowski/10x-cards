@@ -75,17 +75,17 @@ export function ProfileView({ user }: ProfileViewProps) {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Email</label>
+            <div className="text-sm font-medium">Email</div>
             <p className="text-sm text-muted-foreground">{user.email}</p>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Member since</label>
+            <div className="text-sm font-medium">Member since</div>
             <p className="text-sm text-muted-foreground">{formatDate(user.created_at)}</p>
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">User ID</label>
+            <div className="text-sm font-medium">User ID</div>
             <p className="text-sm text-muted-foreground font-mono text-xs">{user.id}</p>
           </div>
         </CardContent>

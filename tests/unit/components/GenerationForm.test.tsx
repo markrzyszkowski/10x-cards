@@ -5,8 +5,6 @@ import { GenerationForm } from "@/components/GenerationForm";
 
 describe("GenerationForm", () => {
   const mockOnGenerate = vi.fn();
-  const MIN_CHARS = 1000;
-  const MAX_CHARS = 10000;
 
   beforeEach(() => {
     vi.clearAllMocks();

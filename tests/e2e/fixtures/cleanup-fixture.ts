@@ -14,12 +14,13 @@ import { cleanupTestData } from "../utils/database-cleanup";
  * });
  */
 
-type CleanupFixture = {
-  cleanup: void;
-};
+interface CleanupFixture {
+  cleanup: undefined;
+}
 
 export const test = base.extend<CleanupFixture>({
   cleanup: [
+    // eslint-disable-next-line no-empty-pattern
     async ({}, use) => {
       // Setup: nothing to do before test
       await use();

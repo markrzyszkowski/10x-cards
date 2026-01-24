@@ -10,6 +10,7 @@ describe("FlashcardService", () => {
 
   beforeEach(() => {
     // Spy on console.error to verify error logging
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
 
     // Reset mock
@@ -169,9 +170,33 @@ describe("FlashcardService", () => {
 
         const mockFlashcardSelect = vi.fn().mockResolvedValue({
           data: [
-            { id: 1, front: "Q1", back: "A1", source: "ai-full", generation_id: 5, created_at: "2024-01-01", updated_at: "2024-01-01" },
-            { id: 2, front: "Q2", back: "A2", source: "ai-full", generation_id: 5, created_at: "2024-01-01", updated_at: "2024-01-01" },
-            { id: 3, front: "Q3", back: "A3", source: "ai-full", generation_id: 5, created_at: "2024-01-01", updated_at: "2024-01-01" },
+            {
+              id: 1,
+              front: "Q1",
+              back: "A1",
+              source: "ai-full",
+              generation_id: 5,
+              created_at: "2024-01-01",
+              updated_at: "2024-01-01",
+            },
+            {
+              id: 2,
+              front: "Q2",
+              back: "A2",
+              source: "ai-full",
+              generation_id: 5,
+              created_at: "2024-01-01",
+              updated_at: "2024-01-01",
+            },
+            {
+              id: 3,
+              front: "Q3",
+              back: "A3",
+              source: "ai-full",
+              generation_id: 5,
+              created_at: "2024-01-01",
+              updated_at: "2024-01-01",
+            },
           ],
           error: null,
         });
@@ -224,8 +249,24 @@ describe("FlashcardService", () => {
 
         const mockFlashcardSelect = vi.fn().mockResolvedValue({
           data: [
-            { id: 1, front: "Q1", back: "A1", source: "ai-full", generation_id: 1, created_at: "2024-01-01", updated_at: "2024-01-01" },
-            { id: 2, front: "Q2", back: "A2", source: "manual", generation_id: null, created_at: "2024-01-01", updated_at: "2024-01-01" },
+            {
+              id: 1,
+              front: "Q1",
+              back: "A1",
+              source: "ai-full",
+              generation_id: 1,
+              created_at: "2024-01-01",
+              updated_at: "2024-01-01",
+            },
+            {
+              id: 2,
+              front: "Q2",
+              back: "A2",
+              source: "manual",
+              generation_id: null,
+              created_at: "2024-01-01",
+              updated_at: "2024-01-01",
+            },
           ],
           error: null,
         });
@@ -260,9 +301,7 @@ describe("FlashcardService", () => {
       it("should throw error when generation_id does not belong to user", async () => {
         // Arrange
         const userId = "user-123";
-        const flashcards: CreateFlashcardDTO[] = [
-          { front: "Q1", back: "A1", source: "ai-full", generation_id: 999 },
-        ];
+        const flashcards: CreateFlashcardDTO[] = [{ front: "Q1", back: "A1", source: "ai-full", generation_id: 999 }];
 
         const mockGenSelect = vi.fn().mockResolvedValue({
           data: [], // No matching generation found
@@ -326,9 +365,7 @@ describe("FlashcardService", () => {
       it("should throw error when generation verification query fails", async () => {
         // Arrange
         const userId = "user-123";
-        const flashcards: CreateFlashcardDTO[] = [
-          { front: "Q1", back: "A1", source: "ai-full", generation_id: 1 },
-        ];
+        const flashcards: CreateFlashcardDTO[] = [{ front: "Q1", back: "A1", source: "ai-full", generation_id: 1 }];
 
         const mockGenIn = vi.fn().mockResolvedValue({
           data: null,
@@ -357,9 +394,7 @@ describe("FlashcardService", () => {
       it("should throw error when flashcard insertion fails", async () => {
         // Arrange
         const userId = "user-123";
-        const flashcards: CreateFlashcardDTO[] = [
-          { front: "Q1", back: "A1", source: "manual", generation_id: null },
-        ];
+        const flashcards: CreateFlashcardDTO[] = [{ front: "Q1", back: "A1", source: "manual", generation_id: null }];
 
         const mockSelect = vi.fn().mockResolvedValue({
           data: null,
@@ -384,9 +419,7 @@ describe("FlashcardService", () => {
       it("should throw error when insertion returns no data", async () => {
         // Arrange
         const userId = "user-123";
-        const flashcards: CreateFlashcardDTO[] = [
-          { front: "Q1", back: "A1", source: "manual", generation_id: null },
-        ];
+        const flashcards: CreateFlashcardDTO[] = [{ front: "Q1", back: "A1", source: "manual", generation_id: null }];
 
         const mockSelect = vi.fn().mockResolvedValue({
           data: null,
@@ -422,8 +455,24 @@ describe("FlashcardService", () => {
         };
 
         const flashcards = [
-          { id: 1, front: "Q1", back: "A1", source: "manual", generation_id: null, created_at: "2024-01-01", updated_at: "2024-01-01" },
-          { id: 2, front: "Q2", back: "A2", source: "manual", generation_id: null, created_at: "2024-01-02", updated_at: "2024-01-02" },
+          {
+            id: 1,
+            front: "Q1",
+            back: "A1",
+            source: "manual",
+            generation_id: null,
+            created_at: "2024-01-01",
+            updated_at: "2024-01-01",
+          },
+          {
+            id: 2,
+            front: "Q2",
+            back: "A2",
+            source: "manual",
+            generation_id: null,
+            created_at: "2024-01-02",
+            updated_at: "2024-01-02",
+          },
         ];
 
         const mockRange = vi.fn().mockResolvedValue({
@@ -475,7 +524,15 @@ describe("FlashcardService", () => {
         };
 
         const mockRange = vi.fn().mockResolvedValue({
-          data: Array(10).fill({ id: 1, front: "Q", back: "A", source: "manual", generation_id: null, created_at: "2024-01-01", updated_at: "2024-01-01" }),
+          data: Array(10).fill({
+            id: 1,
+            front: "Q",
+            back: "A",
+            source: "manual",
+            generation_id: null,
+            created_at: "2024-01-01",
+            updated_at: "2024-01-01",
+          }),
           error: null,
           count: 25, // Total 25 items, but only returning 10
         });
@@ -1253,11 +1310,6 @@ describe("FlashcardService", () => {
       // Arrange
       const userId = "user-123";
       const flashcardId = 1;
-
-      const mockDelete = vi.fn().mockResolvedValue({
-        error: null,
-        count: 1,
-      });
 
       const mockEq2 = vi.fn().mockReturnValue(Promise.resolve({ error: null, count: 1 }));
 

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import type { FlashcardsViewState, ApiErrorResponse } from "../FlashcardsView.types";
-import type { FlashcardDTO, PaginatedFlashcardsResponseDTO, UpdateFlashcardDTO, DeleteResponseDTO } from "../../types";
+import type { FlashcardDTO, PaginatedFlashcardsResponseDTO, UpdateFlashcardDTO } from "../../types";
 
 const DEFAULT_LIMIT = 50;
 
@@ -75,7 +75,7 @@ export function useFlashcards() {
   // Effect to fetch on mount and filter/sort changes
   useEffect(() => {
     fetchFlashcards();
-  }, [state.filters, state.offset]);
+  }, [fetchFlashcards, state.filters, state.offset]);
 
   // Filter actions
   const setSourceFilter = useCallback((source: "ai-full" | "ai-edited" | "manual" | undefined) => {
@@ -255,7 +255,7 @@ export function useFlashcards() {
           throw new Error(error.message || "Failed to delete flashcard");
         }
 
-        const _result: DeleteResponseDTO = await response.json();
+        await response.json();
 
         setState((prev) => {
           const newFlashcards = prev.flashcards.filter((f) => f.id !== id);

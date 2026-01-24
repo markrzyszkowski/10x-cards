@@ -155,3 +155,20 @@ When modifying the directory structure, always update this section.
 - Implement test hooks for setup and teardown
 - Use expect assertions with specific matchers
 - Leverage parallel execution for faster test runs
+
+## Github Actions
+
+- Check if `package.json` exists in project root and summarize key scripts
+- Check if `.nvmrc` exists in project root
+- Check if `.env.example` exists in project root to identify key `env:` variables
+- Always use `git branch -a | cat` to verify whether we use `main` or `master` branch
+- Always use `env:` variables and secrets attached to jobs instead of global workflows
+- Always use `npm ci` for Node-based dependency setup
+- Extract common steps into composite actions in separate files
+- Once you're done, as a final step conduct the following:
+
+(Ask if needed) In case of linter issues related to action parameters, try to fetch action description directly from GitHub and use the following command:
+
+```bash
+curl -s https://raw.githubusercontent.com/{owner}/{repo}/refs/heads/{main/master}/action.yml
+```

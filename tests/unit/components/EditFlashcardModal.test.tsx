@@ -388,7 +388,7 @@ describe("EditFlashcardModal", () => {
     });
 
     it("shows warning color when front is at 90% threshold (180 chars)", async () => {
-      const user = userEvent.setup();
+      userEvent.setup();
       const longFlashcard: FlashcardDTO = {
         ...mockFlashcard,
         front: "a".repeat(180),

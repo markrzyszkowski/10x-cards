@@ -26,6 +26,7 @@ Object.defineProperty(window, "matchMedia", {
 });
 
 // Mock IntersectionObserver (not implemented in jsdom)
+/* eslint-disable @typescript-eslint/no-useless-constructor, @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any */
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}
   disconnect() {}
@@ -43,3 +44,4 @@ global.ResizeObserver = class ResizeObserver {
   observe() {}
   unobserve() {}
 } as any;
+/* eslint-enable @typescript-eslint/no-useless-constructor, @typescript-eslint/no-empty-function, @typescript-eslint/no-explicit-any */

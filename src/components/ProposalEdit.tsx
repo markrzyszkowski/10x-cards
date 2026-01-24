@@ -9,7 +9,13 @@ import type { ProposalEditProps } from "./GenerateView.types";
 const MAX_FRONT_CHARS = 200;
 const MAX_BACK_CHARS = 500;
 
-export function ProposalEdit({ initialFront, initialBack, onSave, onCancel, index }: ProposalEditProps & { index: number }) {
+export function ProposalEdit({
+  initialFront,
+  initialBack,
+  onSave,
+  onCancel,
+  index,
+}: ProposalEditProps & { index: number }) {
   const [front, setFront] = useState(initialFront);
   const [back, setBack] = useState(initialBack);
   const [frontError, setFrontError] = useState<string | null>(null);
