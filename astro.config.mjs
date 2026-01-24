@@ -13,6 +13,14 @@ export default defineConfig({
   server: { port: 3000 },
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      external: ["node:stream"],
+    },
   },
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    mode: "directory",
+    platformProxy: {
+      enabled: true,
+    },
+  }),
 });
